@@ -22,7 +22,7 @@ export function LRXBlock({
       return false;
     }
 
-    return line.timecode.value > currentTime;
+    return line.timecode.value > currentTime - 5;
   });
   return (
     <div className="lrx-block">

@@ -11,6 +11,18 @@ export interface LRXProps {
   audioUrl?: string;
 }
 
+function time(value: number) {
+  let mm = Math.floor(value / 60)
+    .toString()
+    .padStart(2, "0");
+  let ss = Math.floor(value % 60)
+    .toString()
+    .padStart(2, "0");
+  let ms = (value - Math.floor(value)).toString().padStart(3, "0");
+
+  return `${mm}:${ss}.${ms}`;
+}
+
 const LRX = ({ contents, audioUrl }: LRXProps) => {
   let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/, ""));
   let [transpose, setTranspose] = useState<number>(0);
@@ -34,7 +46,7 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
         />
       ) : null}
       <pre className="lrx-document">
-        {currentTime}
+        {time(currentTime)}
         <div className="lrx-toolbox">
           <input
             type="number"
