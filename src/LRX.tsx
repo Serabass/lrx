@@ -1,20 +1,28 @@
+import React, { useState } from "react";
 import { hot } from "react-hot-loader";
-import React from "react";
 // @ts-ignore
 import parser from "./parser.pegjs";
 import "./lrx.sass";
-import {
-  LRXChordsLine,
-  LRXDocument,
-  LRXDocumentBlock,
-  LRXGeneralLine
-} from "./types";
+import { LRXDocument } from "./types";
+import { LRXBlock } from "./LRXBlock";
 
 const LRX = ({ contents }: any) => {
   let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/, ""));
+  let [transpose, setTranspose] = useState<number>(0);
+
   return (
     <div className="wrapper">
       <pre className="lrx-document">
+        <div className="lrx-toolbox">
+          <input
+            type="number"
+            className="transpose-input"
+            value={transpose}
+            onChange={(e) => {
+              setTranspose(+e.target.value);
+            }}
+          />
+        </div>
         <h1>{lrxDoc.title.title}</h1>
 
         <div className="lrx-document-wrapper">
@@ -27,63 +35,5 @@ const LRX = ({ contents }: any) => {
     </div>
   );
 };
-
-export function LRXBlock({ block }: { block: LRXDocumentBlock }) {
-  return (
-    <div className="lrx-block">
-      <h3 className="lrx-block-header">
-        [{block.header.title}]<sup>{block.avgRate}</sup>
-      </h3>
-      {block.body.map((line, i) => (
-        <LRXLine line={line} key={i} />
-      ))}
-    </div>
-  );
-}
-
-export function LRXLine({ line }: { line: LRXGeneralLine }) {
-  switch (line.type) {
-    case "EMPTY_LINE":
-      return <p />;
-
-    case "CHORDS_LINE":
-      return <LRXChordLine line={line as LRXChordsLine} />;
-
-    case "LINE":
-      return <LRXLyricsLine line={line} />;
-
-    default:
-      return <p>UNK: {line.type}</p>;
-  }
-}
-
-export function LRXChordLine({ line }: { line: LRXChordsLine }) {
-  return (
-    <p>
-      {line.chords.map((chord, i: number) => (
-        <span className="chord" key={i}>
-          {chord.space.start}
-          {chord.note}
-          {chord.mod || ""}
-          {chord.suffix || ""}
-          {chord.space.end}
-        </span>
-      ))}
-    </p>
-  );
-}
-
-export function LRXLyricsLine({ line }: any) {
-  return (
-    <p className="lrx-lyrics-line">
-      {line.content.map((entry: any, i: number) => (
-        <span key={i} className="lrx-lyrics-line-entry">
-          {entry.content}&nbsp;
-        </span>
-      ))}
-      <sup>{line.avgRate}</sup>
-    </p>
-  );
-}
 
 export default hot(module)(LRX);
