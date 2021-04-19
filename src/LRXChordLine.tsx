@@ -1,6 +1,5 @@
 import React from "react";
 import { LRXChordsLine } from "./types";
-import Transposer from "./chord-transposer";
 
 export interface LRXChordLineProps {
   line: LRXChordsLine;
