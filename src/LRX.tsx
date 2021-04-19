@@ -14,6 +14,7 @@ interface LRXDocumentTitle {
 }
 
 interface LRXDocumentBlock {
+    avgRate: number;
     header: {
         title: string;
     };
@@ -59,7 +60,7 @@ const LRX = ({contents}: any) => {
 
 export function LRXBlock({block}: { block: LRXDocumentBlock }) {
     return <div className="lrx-block">
-        <h3 className="lrx-block-header">[{block.header.title}]</h3>
+        <h3 className="lrx-block-header">[{block.header.title}]<sup>{block.avgRate}</sup></h3>
         {block.body.map((line, i) => <LRXLine line={line} key={i} />)}
     </div>
 }
@@ -89,8 +90,13 @@ export function LRXChordLine({line}: { line: LRXChordsLine }) {
 }
 
 export function LRXLyricsLine({line}: any) {
-    return <p>
-        {line.content.map((entry: any, i: number) => <span key={i}>{entry.content}</span>)}
+    return <p className="lrx-lyrics-line">
+        {line.content.map((entry: any, i: number) => <span key={i} className="lrx-lyrics-line-entry">
+            {entry.content}&nbsp;
+        </span>)}
+        <sup>
+            {line.avgRate}
+        </sup>
     </p>
 }
 
