@@ -3,44 +3,7 @@ import React from "react";
 // @ts-ignore
 import parser from './parser.pegjs';
 import './lrx.sass';
-
-interface LRXDocument {
-    title: LRXDocumentTitle;
-    blocks: LRXDocumentBlock[]
-}
-
-interface LRXDocumentTitle {
-    title: string;
-}
-
-interface LRXDocumentBlock {
-    avgRate: number;
-    header: {
-        title: string;
-    };
-    body: LRXGeneralLine[];
-}
-
-interface LRXGeneralLine {
-    type: string;
-}
-
-interface LRXChordSpace {
-    start: string;
-    end: string;
-}
-
-interface LRXChord {
-    space: LRXChordSpace;
-    note: string;
-    mod: string;
-    suffix: string;
-}
-
-interface LRXChordsLine {
-    type: 'CHORDS_LINE';
-    chords: LRXChord[];
-}
+import {LRXChordsLine, LRXDocument, LRXDocumentBlock, LRXGeneralLine} from './types';
 
 const LRX = ({contents}: any) => {
     let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/, ''));
