@@ -31,6 +31,7 @@
     "react/jsx-fragments": 0,
     "react/no-unused-prop-types": 0,
     "import/export": 0,
-    "react/jsx-pascal-case": 0
+    "react/jsx-pascal-case": 0,
+    "no-useless-constructor": 0
   }
 }
