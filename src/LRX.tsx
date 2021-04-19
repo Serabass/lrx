@@ -3,12 +3,13 @@ import { hot } from "react-hot-loader";
 // @ts-ignore
 import parser from "./parser.pegjs";
 import "./lrx.sass";
-import { LRXDocument } from "./types";
+import { LRXDocument, LRXGeneralLineEntry } from "./types";
 import { LRXBlock } from "./LRXBlock";
 
 const LRX = ({ contents }: any) => {
   let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/, ""));
   let [transpose, setTranspose] = useState<number>(0);
+  let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
 
   return (
     <div className="wrapper">
@@ -27,10 +28,19 @@ const LRX = ({ contents }: any) => {
 
         <div className="lrx-document-wrapper">
           {lrxDoc.blocks.map((block, i) => (
-            <LRXBlock block={block} key={i} />
+            <LRXBlock
+              block={block}
+              key={i}
+              activeEntry={activeEntry}
+              onEntryClicked={(entry) => {
+                setActiveEntry(entry);
+              }}
+            />
           ))}
         </div>
-        <div className="lrx-document-info">info</div>
+        <div className="lrx-document-info">
+          <pre>{JSON.stringify(activeEntry, null, 2)}</pre>
+        </div>
       </pre>
     </div>
   );

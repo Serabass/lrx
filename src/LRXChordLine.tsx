@@ -3,13 +3,15 @@ import { LRXChordsLine } from "./types";
 
 export function LRXChordLine({ line }: { line: LRXChordsLine }) {
   return (
-    <p>
+    <p className="lrx-chords-line">
       {line.chords.map((chord, i) => (
-        <span className="chord" key={i}>
+        <span key={i}>
           {chord.space.start}
-          {chord.note}
-          {chord.mod || ""}
-          {chord.suffix || ""}
+          <span className="chord-entry">
+            {chord.note}
+            {chord.mod || ""}
+            {chord.suffix || ""}
+          </span>
           {chord.space.end}
         </span>
       ))}

@@ -1,13 +1,19 @@
 import React from "react";
-import { LRXDocumentBlock, OnEntryClickedCallback } from "./types";
+import {
+  LRXDocumentBlock,
+  LRXGeneralLineEntry,
+  OnEntryClickedCallback
+} from "./types";
 import { LRXLine } from "./LRXLine";
 
 export function LRXBlock({
   block,
-  onEntryClicked = () => {}
+  onEntryClicked = () => {},
+  activeEntry
 }: {
   block: LRXDocumentBlock;
   onEntryClicked: OnEntryClickedCallback;
+  activeEntry?: LRXGeneralLineEntry;
 }) {
   return (
     <div className="lrx-block">
@@ -19,6 +25,7 @@ export function LRXBlock({
         <LRXLine
           line={line}
           key={i}
+          activeEntry={activeEntry}
           onEntryClicked={(entry) => {
             onEntryClicked(entry);
           }}

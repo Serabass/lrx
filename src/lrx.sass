@@ -22,8 +22,12 @@
       &:hover
         box-shadow: 0 0 3px 0 rgb(60 64 67 / 15%)
 
-    .chord
-      font-weight: bold
+    .lrx-chords-line
+      .chord-entry
+        cursor: pointer
+        font-weight: bold
+        &:hover
+          background-color: rgba(0, 230, 255, 0.2)
 
     p
       margin: 0
@@ -37,6 +41,10 @@
 
       .lrx-lyrics-line-entry
         cursor: pointer
+        &.highlight
+          background-color: rgba(61, 255, 255, 0.31)
+        &.active
+          background-color: rgba(0, 255, 97, 0.31)
         &:hover
           background-color: #00ff6173
 

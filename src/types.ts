@@ -2,7 +2,13 @@ export interface LRXDocumentTitle {
   title: string;
 }
 
+export interface LRXGeneralLineEntryBookmark {
+  n: string;
+}
+
 export interface LRXGeneralLineEntry {
+  _id: number;
+  bm: LRXGeneralLineEntryBookmark;
   content: string;
 }
 

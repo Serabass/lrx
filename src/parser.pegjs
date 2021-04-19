@@ -1,4 +1,11 @@
 {
+  let entryCounter = 0;
+
+  function getNextEntryId() {
+    entryCounter++;
+    return entryCounter;
+  }
+
   function extractList(list, index) {
     return list.map(function(element) { return element[index]; });
   }
@@ -80,7 +87,7 @@ LRXBlock
       }
 
     LyricsLine 'lyrics line'
-      = content: LyricLineContent+ NL {
+      = content: LyricLineContent+ __ Timecode __ NL {
         let parts = [];
 
         let rates = content.map(con => {
@@ -117,6 +124,7 @@ LRXBlock
     LyricLineContent
       = content: SourceCharacter+ bm: LineBookmark? _ {
         return {
+          _id: getNextEntryId(),
           type: 'LINE_CONTENT',
           content: content.join(''),
           bm,
@@ -178,7 +186,10 @@ LRXReportLine =
 
 
 
+Timecode 'timecode'
+= '[' mm: Integer ':' ss: Integer ',' ms:Integer ']' {
 
+}
 
 
 
