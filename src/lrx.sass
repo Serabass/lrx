@@ -22,9 +22,14 @@
       float: left
       transition: box-shadow 100ms ease-out
       padding: 10px
+      margin-top: 10px
 
       &:hover
         box-shadow: 0 0 3px 0 rgb(60 64 67 / 15%)
+
+      .lrx-block-header
+        margin: 0
+        margin-bottom: 15px
 
     .lrx-chords-line
       .chord-entry
@@ -63,9 +68,13 @@
         &.highlight
           background-color: rgba(61, 255, 255, 0.31)
         &.active
-          background-color: rgba(0, 255, 97, 0.31)
+          background-color: rgba(0, 255, 97, 0.08)
         &:hover
-          background-color: #00ff6173
+          background-color: rgba(0, 255, 97, 0.04)
+
+      .lrx-lyrics-line-empty-entry
+        user-select: none
+        pointer-events: none
 
     .lrx-document-info
       float: left

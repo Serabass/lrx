@@ -4,6 +4,7 @@ import {
   LRXGeneralLineEntry,
   OnEntryClickedCallback
 } from "./types";
+import { If } from "./if";
 
 export interface LRXLyricsLineProps {
   line: LRXGeneralLine;
@@ -40,18 +41,26 @@ export function LRXLyricsLine({
         }
 
         return (
-          <span
-            key={i}
-            className={
-              "lrx-lyrics-line-entry" +
-              (active ? " active" : "") +
-              (highlight ? " highlight" : "")
-            }
-            onClick={() => {
-              onEntryClicked(entry);
-            }}
-          >
-            {entry.content}&nbsp;
+          <span>
+            <If condition={!!entry.content.trim()} key={i}>
+              <span
+                className={
+                  "lrx-lyrics-line-entry" +
+                  (active ? " active" : "") +
+                  (highlight ? " highlight" : "")
+                }
+                onClick={() => {
+                  onEntryClicked(entry);
+                }}
+              >
+                {entry.content}&nbsp;
+              </span>
+            </If>
+            <If condition={!entry.content.trim()} key={i}>
+              <span className="lrx-lyrics-line-empty-entry">
+                {entry.content}
+              </span>
+            </If>
           </span>
         );
       })}
