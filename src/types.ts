@@ -2,8 +2,14 @@ export interface LRXDocumentTitle {
   title: string;
 }
 
+export interface LRXGeneralLineEntry {
+  content: string;
+}
+
 export interface LRXGeneralLine {
   type: string;
+  avgRate: number;
+  content: LRXGeneralLineEntry[];
 }
 
 export interface LRXDocumentBlock {
@@ -35,3 +41,5 @@ export interface LRXChordsLine {
   type: "CHORDS_LINE";
   chords: LRXChord[];
 }
+
+export type OnEntryClickedCallback = (entry: LRXGeneralLineEntry) => void;

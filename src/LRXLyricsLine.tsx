@@ -1,8 +1,9 @@
 import React from "react";
+import { LRXGeneralLine, OnEntryClickedCallback } from "./types";
 
 export interface LRXLyricsLineProps {
-  line: any;
-  onEntryClicked: any;
+  line: LRXGeneralLine;
+  onEntryClicked: OnEntryClickedCallback;
 }
 
 export function LRXLyricsLine({
@@ -11,7 +12,7 @@ export function LRXLyricsLine({
 }: LRXLyricsLineProps) {
   return (
     <p className="lrx-lyrics-line">
-      {line.content.map((entry: any, i: number) => (
+      {line.content.map((entry, i) => (
         <span
           key={i}
           className="lrx-lyrics-line-entry"

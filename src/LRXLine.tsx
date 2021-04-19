@@ -1,5 +1,5 @@
 import React from "react";
-import { LRXChordsLine, LRXGeneralLine } from "./types";
+import { LRXGeneralLine, OnEntryClickedCallback } from "./types";
 import { LRXChordLine } from "./LRXChordLine";
 import { LRXLyricsLine } from "./LRXLyricsLine";
 
@@ -8,14 +8,14 @@ export function LRXLine({
   onEntryClicked = () => {}
 }: {
   line: LRXGeneralLine;
-  onEntryClicked: any;
+  onEntryClicked: OnEntryClickedCallback;
 }) {
   switch (line.type) {
     case "EMPTY_LINE":
       return <p />;
 
     case "CHORDS_LINE":
-      return <LRXChordLine line={line as LRXChordsLine} />;
+      return <LRXChordLine line={line as any} />;
 
     case "LINE":
       return (
