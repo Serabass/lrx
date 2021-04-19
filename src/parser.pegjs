@@ -6,6 +6,10 @@
     return entryCounter;
   }
 
+  function timeValue({mm, ss, ms}) {
+    return mm * 60 + ss + (ms / 1000);
+  }
+
   function extractList(list, index) {
     return list.map(function(element) { return element[index]; });
   }
@@ -87,7 +91,7 @@ LRXBlock
       }
 
     LyricsLine 'lyrics line'
-      = content: LyricLineContent+ __ Timecode __ NL {
+      = content: LyricLineContent+ NL {
         let parts = [];
 
         let rates = content.map(con => {
@@ -122,13 +126,14 @@ LRXBlock
       }
 
     LyricLineContent
-      = content: SourceCharacter+ bm: LineBookmark? _ {
+      = content: SourceCharacter+ bm: LineBookmark? _ timecode: Timecode? {
         return {
           _id: getNextEntryId(),
           type: 'LINE_CONTENT',
           content: content.join(''),
           bm,
-          loc: location()
+          loc: location(),
+          timecode
         };
       }
 
@@ -187,8 +192,14 @@ LRXReportLine =
 
 
 Timecode 'timecode'
-= '[' mm: Integer ':' ss: Integer ',' ms:Integer ']' {
-
+= '[' mm: Integer ':' ss: Integer '.' ms:Integer ']' {
+  return {
+    type: 'TIMECODE',
+    mm,
+    ss,
+    ms,
+    value: timeValue({mm, ss, ms})
+  };
 }
 
 
