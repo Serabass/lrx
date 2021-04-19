@@ -42,12 +42,19 @@ interface LRXChordsLine {
 }
 
 const LRX = ({contents}: any) => {
-    let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/));
-    return <pre className="lrx-document">
+    let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/, ''));
+    return <div className="wrapper">
+        <pre className="lrx-document">
         <h1>{lrxDoc.title.title}</h1>
 
-        {lrxDoc.blocks.map((block, i) => <LRXBlock block={block} key={i} />)}
-    </pre>;
+        <div className="lrx-document-wrapper">
+         {lrxDoc.blocks.map((block, i) => <LRXBlock block={block} key={i} />)}
+        </div>
+        <div className="lrx-document-info">
+         info
+        </div>
+    </pre>
+    </div>;
 };
 
 export function LRXBlock({block}: { block: LRXDocumentBlock }) {

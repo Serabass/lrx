@@ -1,15 +1,29 @@
-.lrx-document
-  box-shadow: 0 0 3px 0 rgb(60 64 67 / 15%)
-  background-color: #fff
-  padding: 32px 44px 24px
+.wrapper
   width: 830px
   margin: auto
 
-  .lrx-block-header
-    margin-top: 40px
+  .lrx-document
+    box-shadow: 0 0 3px 0 rgb(60 64 67 / 15%)
+    background-color: #fff
+    padding: 32px 44px 24px
+    float: left
+    border-radius: 5px
 
-  .chord
-    font-weight: bold
+    .lrx-document-wrapper, .lrx-document-info
+      width: 50%
+      float: left
 
-  p
-    margin: 0
+    .lrx-block
+      width: calc(100% - 20px)
+      float: left
+      transition: box-shadow 100ms ease-out
+      padding: 10px
+
+      &:hover
+        box-shadow: 0 0 3px 0 rgb(60 64 67 / 15%)
+
+    .chord
+      font-weight: bold
+
+    p
+      margin: 0
