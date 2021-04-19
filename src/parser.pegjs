@@ -91,7 +91,7 @@ LRXBlock
       }
 
     LyricsLine 'lyrics line'
-      = content: LyricLineContent+ NL {
+      = content: LyricLineContent+ _ timecode: Timecode? NL {
         let parts = [];
 
         let rates = content.map(con => {
@@ -121,19 +121,19 @@ LRXBlock
           content: content,
           loc: location(),
           text: text(),
-          avgRate
+          avgRate,
+          timecode
         };
       }
 
     LyricLineContent
-      = content: SourceCharacter+ bm: LineBookmark? _ timecode: Timecode? {
+      = content: SourceCharacter+ bm: LineBookmark? {
         return {
           _id: getNextEntryId(),
           type: 'LINE_CONTENT',
           content: content.join(''),
           bm,
           loc: location(),
-          timecode
         };
       }
 
@@ -198,7 +198,8 @@ Timecode 'timecode'
     mm,
     ss,
     ms,
-    value: timeValue({mm, ss, ms})
+    value: timeValue({mm, ss, ms}),
+    text: text(),
   };
 }
 
@@ -293,6 +294,7 @@ SourceCharacter 'source character'
   / '>'
   / '\u0301'
   / '\uFFFD'
+  / '№'
 
 
 
