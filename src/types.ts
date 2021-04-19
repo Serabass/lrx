@@ -26,9 +26,20 @@ export interface LRXDocumentBlock {
   body: LRXGeneralLine[];
 }
 
+export interface LRXReportLine {
+  type: "REPORT_LINE";
+  n: string;
+  text: string;
+}
+
+export interface LRXReport {
+  lines: LRXReportLine[];
+}
+
 export interface LRXDocument {
   title: LRXDocumentTitle;
   blocks: LRXDocumentBlock[];
+  report: LRXReport;
 }
 
 export interface LRXChordSpace {

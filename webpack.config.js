@@ -1,4 +1,4 @@
-var HtmlWebpackPlugin = require("html-webpack-plugin");
+let HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",

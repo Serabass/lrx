@@ -6,13 +6,27 @@ import "./lrx.sass";
 import { LRXDocument, LRXGeneralLineEntry } from "./types";
 import { LRXBlock } from "./LRXBlock";
 
-const LRX = ({ contents }: any) => {
+export interface LRXProps {
+  contents: string;
+  audioUrl?: string;
+}
+
+const LRX = ({ contents, audioUrl }: LRXProps) => {
   let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/, ""));
   let [transpose, setTranspose] = useState<number>(0);
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
 
+  let activeReportLines = lrxDoc.report.lines.filter(
+    (line) => line.n === activeEntry?.bm.n
+  );
+
+  console.log(audioUrl);
+
   return (
     <div className="wrapper">
+      {audioUrl ? (
+        <audio src={audioUrl} controls style={{ width: "100%" }} />
+      ) : null}
       <pre className="lrx-document">
         <div className="lrx-toolbox">
           <input
@@ -39,7 +53,22 @@ const LRX = ({ contents }: any) => {
           ))}
         </div>
         <div className="lrx-document-info">
-          <pre>{JSON.stringify(activeEntry, null, 2)}</pre>
+          {activeEntry ? (
+            <pre>
+              <h3>#{activeEntry._id}</h3>
+              <p>{activeEntry.content}</p>
+
+              <hr />
+
+              {activeReportLines.map((line, i) => {
+                return (
+                  <p key={i}>
+                    ~{line.n} {line.text}
+                  </p>
+                );
+              })}
+            </pre>
+          ) : null}
         </div>
       </pre>
     </div>
