@@ -12,10 +12,19 @@ export interface LRXGeneralLineEntry {
   content: string;
 }
 
+export interface Timecode {
+  mm: number;
+  ss: number;
+  ms: number;
+  value: number;
+  text: string;
+}
+
 export interface LRXGeneralLine {
   type: string;
   avgRate: number;
   content: LRXGeneralLineEntry[];
+  timecode?: Timecode;
 }
 
 export interface LRXDocumentBlock {

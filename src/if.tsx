@@ -6,7 +6,7 @@ export interface IfProps {
 
 export function If({ condition, children }: IfProps) {
   let result;
-  if (typeof condition === 'function') {
+  if (typeof condition === "function") {
     result = condition();
   } else {
     result = condition;

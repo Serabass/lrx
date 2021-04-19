@@ -9,15 +9,17 @@ export interface LRXLyricsLineProps {
   line: LRXGeneralLine;
   onEntryClicked: OnEntryClickedCallback;
   activeEntry?: LRXGeneralLineEntry;
+  timeHighlight?: boolean;
 }
 
 export function LRXLyricsLine({
   line,
   onEntryClicked = () => {},
-  activeEntry
+  activeEntry,
+  timeHighlight = false
 }: LRXLyricsLineProps) {
   return (
-    <p className="lrx-lyrics-line">
+    <p className={"lrx-lyrics-line" + (timeHighlight ? " time-highlight" : "")}>
       {line.content.map((entry, i) => {
         let active = false;
         let highlight = false;

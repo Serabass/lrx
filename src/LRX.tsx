@@ -15,19 +15,26 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
   let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/, ""));
   let [transpose, setTranspose] = useState<number>(0);
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
+  let [currentTime, setCurrentTime] = useState<number>(0);
 
   let activeReportLines = lrxDoc.report.lines.filter(
     (line) => line.n === activeEntry?.bm.n
   );
 
-  console.log(audioUrl);
-
   return (
     <div className="wrapper">
       {audioUrl ? (
-        <audio src={audioUrl} controls style={{ width: "100%" }} />
+        <audio
+          src={audioUrl}
+          controls
+          style={{ width: "100%" }}
+          onTimeUpdate={(e) => {
+            setCurrentTime(e.currentTarget.currentTime);
+          }}
+        />
       ) : null}
       <pre className="lrx-document">
+        {currentTime}
         <div className="lrx-toolbox">
           <input
             type="number"
@@ -45,6 +52,7 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
             <LRXBlock
               block={block}
               key={i}
+              currentTime={currentTime}
               activeEntry={activeEntry}
               onEntryClicked={(entry) => {
                 setActiveEntry(entry);
