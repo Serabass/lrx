@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;1,300&display=swap')
+
 .wrapper
   width: 830px
   margin: auto
@@ -8,6 +10,8 @@
     padding: 32px 44px 24px
     float: left
     border-radius: 2px
+    font-family: 'Roboto Mono', monospace
+    font-size: 13px
 
     .lrx-document-wrapper
       width: 50%
@@ -26,6 +30,7 @@
       .chord-entry
         cursor: pointer
         font-weight: bold
+        color: #05d1ff
         &:hover
           background-color: rgba(0, 230, 255, 0.2)
 
@@ -33,13 +38,24 @@
       margin: 0
 
     .lrx-lyrics-line
-      sup
+      position: relative
+      .avg-rate
         visibility: hidden
+        position: absolute
+        left: -106px
+        top: -13px
+        background-color: #00c9ff42
+        border-radius: 100%
+        $size: 43px
+        line-height: $size
+        height: $size
+        width: $size
+        text-align: center
 
-      &:hover sup
+      &.active .avg-rate
         visibility: visible
 
-      &.time-highlight
+      &.time-highlight__
         background-color: #dcdcdc
 
       .lrx-lyrics-line-entry

@@ -20,6 +20,7 @@ export function LRXLyricsLine({
 }: LRXLyricsLineProps) {
   return (
     <p className={"lrx-lyrics-line" + (timeHighlight ? " time-highlight" : "")}>
+      <div className="avg-rate">{line.avgRate}</div>
       {line.content.map((entry, i) => {
         let active = false;
         let highlight = false;
@@ -54,7 +55,6 @@ export function LRXLyricsLine({
           </span>
         );
       })}
-      <sup>{line.avgRate}</sup>
     </p>
   );
 }
