@@ -10,12 +10,14 @@ export function LRXBlock({
   block,
   onEntryClicked = () => {},
   activeEntry,
-  currentTime = 0
+  currentTime = 0,
+  transpose = 0
 }: {
   block: LRXDocumentBlock;
   onEntryClicked: OnEntryClickedCallback;
   activeEntry?: LRXGeneralLineEntry;
   currentTime?: number;
+  transpose?: number;
 }) {
   let timeHighlightedLine = block.body.find((line) => {
     if (!line.timecode) {
@@ -36,6 +38,7 @@ export function LRXBlock({
             line={line}
             timeHighlight={timeHighlightedLine === line}
             key={i}
+            transpose={transpose}
             activeEntry={activeEntry}
             onEntryClicked={(entry) => {
               onEntryClicked(entry);

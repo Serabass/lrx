@@ -50,6 +50,8 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
         <div className="lrx-toolbox">
           <input
             type="number"
+            min={-6}
+            max={6}
             className="transpose-input"
             value={transpose}
             onChange={(e) => {
@@ -64,6 +66,7 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
             <LRXBlock
               block={block}
               key={i}
+              transpose={transpose}
               currentTime={currentTime}
               activeEntry={activeEntry}
               onEntryClicked={(entry) => {
@@ -80,13 +83,15 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
 
               <hr />
 
-              {activeReportLines.map((line, i) => {
-                return (
-                  <p key={i}>
-                    ~{line.n} {line.text}
-                  </p>
-                );
-              })}
+              <ul>
+                {activeReportLines.map((line, i) => {
+                  return (
+                    <li key={i}>
+                      ~{line.n} {line.text}
+                    </li>
+                  );
+                })}
+              </ul>
             </pre>
           ) : null}
         </div>

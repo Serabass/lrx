@@ -12,20 +12,22 @@ export interface LRXLineProps {
   onEntryClicked: OnEntryClickedCallback;
   activeEntry?: LRXGeneralLineEntry;
   timeHighlight?: boolean;
+  transpose?: number;
 }
 
 export function LRXLine({
   line,
   onEntryClicked = () => {},
   activeEntry,
-  timeHighlight = false
+  timeHighlight = false,
+  transpose = 0
 }: LRXLineProps) {
   switch (line.type) {
     case "EMPTY_LINE":
       return <p />;
 
     case "CHORDS_LINE":
-      return <LRXChordLine line={line as any} />;
+      return <LRXChordLine line={line as any} transpose={transpose} />;
 
     case "LINE":
       return (
