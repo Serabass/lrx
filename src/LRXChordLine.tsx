@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Divider, Popover, Row } from "antd";
+import { Popover } from "antd";
 import { LRXChord, LRXChordsLine } from "./types";
 import { transposeChord } from "./transpose-chord";
 import { ChordFingering } from "./chord-fingering";
@@ -61,19 +61,6 @@ export function Chord({ chord, transpose, trigger = "click" }: ChordProps) {
 export function LRXChordLine({ line, transpose = 0 }: LRXChordLineProps) {
   return (
     <p className="lrx-chords-line">
-      <Row>
-        {line.chords.map((chord, i) => {
-          let chordName = `${chord.note}${chord.mod || ""}${
-            chord.suffix || ""
-          }`;
-          return (
-            <Col key={i} md={6}>
-              <ChordFingering chord={chordName} transpose={transpose} />
-            </Col>
-          );
-        })}
-      </Row>
-      <Divider />
       {line.chords.map((chord, i) => {
         return <Chord chord={chord} transpose={transpose} key={i} />;
       })}

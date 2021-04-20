@@ -131,7 +131,7 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
         /**
          * Height of a fret, relative to the space between two strings
          */
-        fretSize: 1.5,
+        fretSize: 1.2,
 
         /**
          * The minimum side padding (from the guitar to the edge of the SVG) relative to the whole width.

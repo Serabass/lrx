@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 type StateWithLocalStorage<T> = [T, (val: T) => void];
-type UseStateWithLocalStorage<T> = <TT>(
+type UseStateWithLocalStorage = <TT>(
   key: string,
   initialState: TT
 ) => StateWithLocalStorage<TT>;
@@ -11,9 +11,9 @@ type UseStateWithLocalStorage<T> = <TT>(
  *
  * @param prefix A prefix
  */
-export function createUseLocalStorage<T>(
+export function createUseLocalStorage(
   prefix: string
-): UseStateWithLocalStorage<T> {
+): UseStateWithLocalStorage {
   return <T>(key: string, initialState: T) =>
     useStateWithLocalStorage<T>(`${prefix}::${key}`, initialState);
 }
