@@ -7,8 +7,7 @@ import { LRXDocument, LRXGeneralLineEntry } from "./types";
 import { LRXBlock } from "./LRXBlock";
 import "antd/dist/antd.css";
 import { Info } from "./info";
-import { InputNumber, Typography, Affix, Row, Col } from "antd";
-import { ChordFingering } from "./chord-fingering";
+import { InputNumber, Typography, Affix, Row, Col, Divider } from "antd";
 
 export interface LRXProps {
   contents: string;
@@ -77,6 +76,7 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
                 }}
               />
             </div>
+            <Divider />
             <Typography.Title level={2}>{lrxDoc.title.title}</Typography.Title>
 
             <div className="lrx-document-wrapper">
