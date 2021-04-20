@@ -1,33 +1,36 @@
 import React from "react";
 import { Button, Col, Row } from "antd";
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
+import { ButtonType } from "antd/lib/button/button";
 
 export interface ChordTransposerProps {
   value: number;
   min: number;
   max: number;
   onValueChanged: (value: number) => void;
+  buttonsType?: ButtonType;
 }
 
 export function ChordTransposer({
   value,
   min,
   max,
-  onValueChanged
+  onValueChanged,
+  buttonsType = "default"
 }: ChordTransposerProps) {
   let stringValue = value.toString();
 
   if (value > 0) {
     stringValue = `+${stringValue}`;
-  } else if (value < 0) {
-    stringValue = `-${stringValue}`;
   }
 
   return (
     <Row>
       <Col md={1}>
         <Button
-          icon={<ArrowUpOutlined />}
+          type={buttonsType}
+          icon={<ArrowDownOutlined />}
+          disabled={value <= min}
           onClick={() => {
             if (value <= min) {
               return;
@@ -45,7 +48,9 @@ export function ChordTransposer({
       </Col>
       <Col md={1}>
         <Button
-          icon={<ArrowDownOutlined />}
+          type={buttonsType}
+          icon={<ArrowUpOutlined />}
+          disabled={value >= max}
           onClick={() => {
             if (value >= max) {
               return;

@@ -7,7 +7,7 @@ import { LRXDocument, LRXGeneralLineEntry } from "./types";
 import { LRXBlock } from "./LRXBlock";
 import "antd/dist/antd.css";
 import { Info } from "./info";
-import { InputNumber, Typography, Affix, Row, Col, Divider } from "antd";
+import { Typography, Affix, Row, Col, Divider } from "antd";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import { ChordTransposer } from "./chord-transposer";
 
@@ -59,7 +59,10 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
                   value={transpose}
                   min={-6}
                   max={6}
-                  onValueChanged={() => {}}
+                  buttonsType="dashed"
+                  onValueChanged={(value) => {
+                    setTranspose(value);
+                  }}
                 />
               </div>
               <Divider />
