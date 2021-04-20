@@ -7,6 +7,7 @@ export interface LRXChordLineProps {
 }
 
 function transposeChord(chord: string, amount: number) {
+  // https://stackoverflow.com/a/45979883/2468733
   let scale = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   let normalizeMap: any = {
     Cb: "B",
