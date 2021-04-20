@@ -12,6 +12,7 @@
     border-radius: 2px
     font-family: 'Roboto Mono', monospace
     font-size: 13px
+    margin-bottom: 230px
 
     .lrx-document-wrapper
       width: 50%
@@ -44,6 +45,16 @@
 
     .lrx-lyrics-line
       position: relative
+
+      .progress-bar
+        position: absolute
+        top: 0
+        left: 0
+        width: 0
+        height: 100%
+        background: #72f5d36b
+        transition: width 254ms ease-out
+
       .avg-rate
         visibility: hidden
         position: absolute
@@ -61,7 +72,7 @@
         visibility: visible
 
       &.time-highlight
-        background-color: #dcdcdc
+        // background-color: #cdfff2
 
       .lrx-lyrics-line-entry
         cursor: pointer

@@ -11,16 +11,29 @@ export interface LRXLyricsLineProps {
   onEntryClicked: OnEntryClickedCallback;
   activeEntry?: LRXGeneralLineEntry;
   timeHighlight?: boolean;
+  currentTime?: number;
 }
 
 export function LRXLyricsLine({
   line,
   onEntryClicked = () => {},
   activeEntry,
-  timeHighlight = false
+  timeHighlight = false,
+  currentTime = 0
 }: LRXLyricsLineProps) {
+  let currentPercentage = 0;
+  if (timeHighlight && line && line.timecode) {
+    let duration = line.timecode.end.value - line.timecode.start.value;
+    let currentValue = currentTime - line.timecode.start.value;
+    currentPercentage = (currentValue / duration) * 100;
+  }
+
   return (
     <p className={"lrx-lyrics-line" + (timeHighlight ? " time-highlight" : "")}>
+      <div
+        className="progress-bar"
+        style={{ width: `${currentPercentage}%` }}
+      />
       <div className="avg-rate">{line.avgRate}</div>
       {line.content.map((entry, i) => {
         let active = false;

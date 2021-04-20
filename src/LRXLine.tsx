@@ -12,6 +12,7 @@ export interface LRXLineProps {
   onEntryClicked: OnEntryClickedCallback;
   activeEntry?: LRXGeneralLineEntry;
   timeHighlight?: boolean;
+  currentTime?: number;
   transpose?: number;
 }
 
@@ -20,7 +21,8 @@ export function LRXLine({
   onEntryClicked = () => {},
   activeEntry,
   timeHighlight = false,
-  transpose = 0
+  transpose = 0,
+  currentTime = 0
 }: LRXLineProps) {
   switch (line.type) {
     case "EMPTY_LINE":
@@ -35,6 +37,7 @@ export function LRXLine({
           line={line}
           activeEntry={activeEntry}
           timeHighlight={timeHighlight}
+          currentTime={currentTime}
           onEntryClicked={(entry) => {
             onEntryClicked(entry);
           }}

@@ -29,6 +29,7 @@ export function LRXBlock({
       line.timecode.end.value > currentTime
     );
   });
+
   return (
     <div className="lrx-block">
       <h3 className="lrx-block-header">
@@ -42,6 +43,7 @@ export function LRXBlock({
             timeHighlight={timeHighlightedLine === line}
             key={i}
             transpose={transpose}
+            currentTime={currentTime}
             activeEntry={activeEntry}
             onEntryClicked={(entry) => {
               onEntryClicked(entry);

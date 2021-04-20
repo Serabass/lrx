@@ -50,6 +50,7 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
           }}
           onTimeUpdate={(e) => {
             setCurrentTime(e.currentTarget.currentTime);
+            console.log(e.currentTarget.currentTime);
           }}
         />
       ) : null}
