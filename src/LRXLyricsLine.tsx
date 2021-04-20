@@ -29,7 +29,9 @@ export function LRXLyricsLine({
   }
 
   return (
-    <p className={"lrx-lyrics-line" + (timeHighlight ? " time-highlight" : "")}>
+    <span
+      className={"lrx-lyrics-line" + (timeHighlight ? " time-highlight" : "")}
+    >
       <div
         className="progress-bar"
         style={{ width: `${currentPercentage}%` }}
@@ -77,6 +79,6 @@ export function LRXLyricsLine({
           </span>
         );
       })}
-    </p>
+    </span>
   );
 }
