@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { hot } from "react-hot-loader";
 // @ts-ignore
 import parser from "./parser.pegjs";
-import p from "pegjs";
 import "./lrx.sass";
 import { LRXDocument, LRXGeneralLineEntry } from "./types";
 import { LRXBlock } from "./LRXBlock";
+import "rsuite/dist/styles/rsuite-default.css";
+import { Info } from "./info";
+import { Affix } from "rsuite";
 
 export interface LRXProps {
   contents: string;
@@ -56,7 +58,6 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
         />
       ) : null}
       <pre className="lrx-document">
-        {time(currentTime)}
         <div className="lrx-toolbox">
           <input
             type="number"
@@ -86,24 +87,12 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
           ))}
         </div>
         <div className="lrx-document-info">
-          {activeEntry ? (
-            <pre>
-              <h3>#{activeEntry._id}</h3>
-              <p>{activeEntry.content}</p>
-
-              <hr />
-
-              <ul>
-                {activeReportLines.map((line, i) => {
-                  return (
-                    <li key={i}>
-                      ~{line.n} {line.text}
-                    </li>
-                  );
-                })}
-              </ul>
-            </pre>
-          ) : null}
+          <Affix>
+            <Info
+              activeEntry={activeEntry}
+              activeReportLines={activeReportLines}
+            />
+          </Affix>
         </div>
       </pre>
     </div>

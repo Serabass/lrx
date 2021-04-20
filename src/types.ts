@@ -2,14 +2,21 @@ export interface LRXDocumentTitle {
   title: string;
 }
 
+export interface LRXGeneralLineEntryBookmarkRate {
+  type: string;
+  rate: number;
+}
+
 export interface LRXGeneralLineEntryBookmark {
   n: string;
+  rate: LRXGeneralLineEntryBookmarkRate;
 }
 
 export interface LRXGeneralLineEntry {
   _id: number;
   bm: LRXGeneralLineEntryBookmark;
   content: string;
+  line: any;
 }
 
 export interface Time {
