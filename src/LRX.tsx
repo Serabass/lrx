@@ -10,15 +10,18 @@ import { Info } from "./info";
 import { Typography, Affix, Row, Col, Divider } from "antd";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import { ChordTransposer } from "./chord-transposer";
+import { createUseLocalStorage } from "./useLocalStorage";
 
 export interface LRXProps {
   contents: string;
   audioUrl?: string;
 }
 
+let useLocalStorage = createUseLocalStorage("lrx");
+
 const LRX = ({ contents, audioUrl }: LRXProps) => {
   let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/, ""));
-  let [transpose, setTranspose] = useState<number>(0);
+  let [transpose, setTranspose] = useLocalStorage<number>("transpose", 0);
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
   let [currentTime, setCurrentTime] = useState<number>(0);
 
@@ -29,10 +32,7 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
   return (
     <div className="wrapper">
       <Row>
-        <Col></Col>
-      </Row>
-      <Row>
-        <Col>
+        <Col md={24}>
           {audioUrl ? (
             <audio
               src={audioUrl}
@@ -54,7 +54,7 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
       </Row>
 
       <Row>
-        <Col>
+        <Col md={24}>
           <ErrorBoundary>
             <pre className="lrx-document">
               <div className="lrx-toolbox">

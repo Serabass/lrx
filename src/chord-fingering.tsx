@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { createUseLocalStorage } from "./useLocalStorage";
 import { chords } from "./chords";
 import { transposeChord } from "./transpose-chord";
 import "./chord-fingering.sass";
-import { Col, Divider, Row } from "antd";
+import { Col, Row } from "antd";
 import * as svguitar from "svguitar";
 
 export interface ChordFingeringProps {
@@ -12,62 +12,43 @@ export interface ChordFingeringProps {
 }
 
 export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
-  let ref = useRef<HTMLDivElement>(null);
   let useLocalStorage = createUseLocalStorage(`chord::${chord}::`);
   let [index, setIndex] = useLocalStorage("index", 0);
   let transposed = transposeChord(chord, transpose);
-  let fingering = chords[transposed];
+  let chordEntities = chords[transposed];
+  let [container, setContainer] = useState<svguitar.SVGuitarChord | null>();
 
-  if (!fingering) {
+  if (!chordEntities) {
     throw new Error(`Chord ${transposed} is not recognized`);
   }
 
-  if (fingering.length === 0) {
+  if (chordEntities.length === 0) {
     throw new Error(`Chord ${transposed} is not recognized`);
   }
 
-  let first = fingering[index];
+  let first = chordEntities[index];
 
   if (!first) {
     setIndex(0);
-    return null;
   }
 
-  if (ref.current) {
-    new svguitar.SVGuitarChord(ref.current)
-      .chord({
+  function createElement(ref: HTMLDivElement | null) {
+    if (ref && !container) {
+      let c = new svguitar.SVGuitarChord(ref);
+      c.chord({
         // array of [string, fret, text | options]
-        fingers: [
-          // finger at string 1, fret 2, with text '2'
-          [1, 2, "2"],
-
-          // finger at string 2, fret 3, with text '3', colored red
-          [2, 3, { text: "3", color: "#F00" }],
-
-          // finger is triangle shaped
-          [3, 3, { shape: "triangle" as any }],
-          [6, "x"]
-        ],
+        fingers: first.fingers,
 
         // optional: barres for barre chords
-        barres: [
-          {
-            fromString: 5,
-            toString: 1,
-            fret: 1,
-            text: "1",
-            color: "#0F0",
-            textColor: "#F00"
-          }
-        ],
+        barres: first.barres,
 
         // title of the chart (optional)
-        title: "F# minor",
+        title: transposed,
 
         // position (defaults to 1)
         position: 2
-      })
-      .configure({
+      });
+      c.configure({
         // Customizations (all optional, defaults shown)
 
         /**
@@ -83,7 +64,7 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
         /**
          * The number of frets
          */
-        frets: 4,
+        frets: 9,
         /**
          * Default position if no positon is provided (first fret is 1)
          */
@@ -92,7 +73,7 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
         /**
          * These are the labels under the strings. Can be any string.
          */
-        tuning: ["E", "A", "D", "G", "B", "E"],
+        tuning: ["e", "A", "D", "G", "B", "E"],
 
         /**
          * The position of the fret label (eg. "3fr")
@@ -237,20 +218,22 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
          * no matter if a title is defined or not.
          */
         fixedDiagramPosition: false
-      })
-      .draw();
+      });
+      c.draw();
+      setContainer(c);
+    }
   }
 
   return (
     <div className="container p-0">
       <Row>
         <Col md={24}>
-          <Divider />
-        </Col>
-      </Row>
-      <Row>
-        <Col md={24}>
-          <div ref={ref} style={{ width: "200px" }} />
+          <div
+            ref={(ref) => {
+              createElement(ref);
+            }}
+            style={{ width: "100px" }}
+          />
         </Col>
       </Row>
     </div>

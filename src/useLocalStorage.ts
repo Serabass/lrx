@@ -1,13 +1,21 @@
 import { useState } from "react";
 
+type StateWithLocalStorage<T> = [T, (val: T) => void];
+type UseStateWithLocalStorage<T> = <TT>(
+  key: string,
+  initialState: TT
+) => StateWithLocalStorage<TT>;
+
 /**
  * Returns a hook for LocalStorage values
  *
  * @param prefix A prefix
  */
-export function createUseLocalStorage(prefix: any) {
-  return (key: any, initialState: any) =>
-    useStateWithLocalStorage(`${prefix}::${key}`, initialState);
+export function createUseLocalStorage<T>(
+  prefix: string
+): UseStateWithLocalStorage<T> {
+  return <T>(key: string, initialState: T) =>
+    useStateWithLocalStorage<T>(`${prefix}::${key}`, initialState);
 }
 
 /**
@@ -15,7 +23,10 @@ export function createUseLocalStorage(prefix: any) {
  * @param key
  * @param initialState
  */
-export function useStateWithLocalStorage(key: any, initialState: any) {
+export function useStateWithLocalStorage<T>(
+  key: string,
+  initialState: T
+): StateWithLocalStorage<T> {
   let item = localStorage.getItem(key);
   let value;
   if (!item) {
@@ -24,11 +35,11 @@ export function useStateWithLocalStorage(key: any, initialState: any) {
     value = JSON.parse(item);
   }
 
-  let [v, setV] = useState(value);
+  let [v, setV] = useState<T>(value);
 
   return [
     v,
-    (val: any) => {
+    (val: T) => {
       localStorage.setItem(key, JSON.stringify(val));
       setV(val);
     }
