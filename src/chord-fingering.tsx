@@ -32,7 +32,9 @@ function ChordFingeringNav({
           setIndex(index - 1);
         }}
       >
-        <Button type="default">&lt;</Button>
+        <Button type="default" size="small">
+          &lt;
+        </Button>
       </Col>
       <Col md={16} style={{ textAlign: "center" }}>
         {chordName}
@@ -46,19 +48,21 @@ function ChordFingeringNav({
           setIndex(index + 1);
         }}
       >
-        <Button type="default">&gt;</Button>
+        <Button type="default" size="small">
+          &gt;
+        </Button>
       </Col>
     </Row>
   );
 }
 
 export interface ChordFingeringProps {
-  chord: any;
-  transpose: any;
+  chord: string;
+  transpose: number;
 }
 
 export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
-  let useLocalStorage = createUseLocalStorage(`chord::${chord.name}::`);
+  let useLocalStorage = createUseLocalStorage(`chord::${chord}::`);
   let [index, setIndex] = useLocalStorage("index", 0);
   let transposed = transposeChord(chord, transpose);
   let fingering = chords[transposed];
@@ -94,7 +98,13 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
       />
       <Row>
         <Col md={24}>
-          <svg>
+          <svg
+            style={{
+              width: 100,
+              margin: "auto",
+              display: "block"
+            }}
+          >
             {tuning.map((string, i) => (
               <text
                 x={5 + stringWidth * i}

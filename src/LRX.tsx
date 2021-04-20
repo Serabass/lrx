@@ -7,7 +7,8 @@ import { LRXDocument, LRXGeneralLineEntry } from "./types";
 import { LRXBlock } from "./LRXBlock";
 import "antd/dist/antd.css";
 import { Info } from "./info";
-import { InputNumber, Typography, Affix } from "antd";
+import { InputNumber, Typography, Affix, Row, Col } from "antd";
+import { ChordFingering } from "./chord-fingering";
 
 export interface LRXProps {
   contents: string;
@@ -40,60 +41,69 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
 
   return (
     <div className="wrapper">
-      {audioUrl ? (
-        <audio
-          src={audioUrl}
-          controls
-          style={{
-            width: "100%",
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            zIndex: 9999
-          }}
-          onTimeUpdate={(e) => {
-            setCurrentTime(e.currentTarget.currentTime);
-            console.log(e.currentTarget.currentTime);
-          }}
-        />
-      ) : null}
-      <pre className="lrx-document">
-        <div className="lrx-toolbox">
-          <InputNumber
-            min={-6}
-            max={6}
-            className="transpose-input"
-            value={transpose}
-            onChange={(value: number) => {
-              setTranspose(value);
-            }}
-          />
-        </div>
-        <Typography.Title level={2}>{lrxDoc.title.title}</Typography.Title>
-
-        <div className="lrx-document-wrapper">
-          {lrxDoc.blocks.map((block, i) => (
-            <LRXBlock
-              block={block}
-              key={i}
-              transpose={transpose}
-              currentTime={currentTime}
-              activeEntry={activeEntry}
-              onEntryClicked={(entry) => {
-                setActiveEntry(entry);
+      <Row>
+        <Col>
+          {audioUrl ? (
+            <audio
+              src={audioUrl}
+              controls
+              style={{
+                width: "100%",
+                position: "fixed",
+                bottom: 0,
+                left: 0,
+                zIndex: 9999
+              }}
+              onTimeUpdate={(e) => {
+                setCurrentTime(e.currentTarget.currentTime);
+                console.log(e.currentTarget.currentTime);
               }}
             />
-          ))}
-        </div>
-        <div className="lrx-document-info">
-          <Affix>
-            <Info
-              activeEntry={activeEntry}
-              activeReportLines={activeReportLines}
-            />
-          </Affix>
-        </div>
-      </pre>
+          ) : null}
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <pre className="lrx-document">
+            <div className="lrx-toolbox">
+              <InputNumber
+                min={-6}
+                max={6}
+                className="transpose-input"
+                value={transpose}
+                onChange={(value: number) => {
+                  setTranspose(value);
+                }}
+              />
+            </div>
+            <Typography.Title level={2}>{lrxDoc.title.title}</Typography.Title>
+
+            <div className="lrx-document-wrapper">
+              {lrxDoc.blocks.map((block, i) => (
+                <LRXBlock
+                  block={block}
+                  key={i}
+                  transpose={transpose}
+                  currentTime={currentTime}
+                  activeEntry={activeEntry}
+                  onEntryClicked={(entry) => {
+                    setActiveEntry(entry);
+                  }}
+                />
+              ))}
+            </div>
+            <div className="lrx-document-info">
+              <Affix>
+                <Info
+                  activeEntry={activeEntry}
+                  activeReportLines={activeReportLines}
+                />
+              </Affix>
+            </div>
+          </pre>
+        </Col>
+      </Row>
     </div>
   );
 };
