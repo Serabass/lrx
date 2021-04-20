@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { hot } from "react-hot-loader";
 // @ts-ignore
-import parser from "./parser.pegjs";
 import "./lrx.sass";
 import { LRXDocument, LRXGeneralLineEntry } from "./types";
 import { LRXBlock } from "./LRXBlock";
@@ -13,19 +12,18 @@ import { ChordTransposer } from "./chord-transposer";
 import { createUseLocalStorage } from "./useLocalStorage";
 
 export interface LRXProps {
-  contents: string;
+  doc: LRXDocument;
   audioUrl?: string;
 }
 
 let useLocalStorage = createUseLocalStorage("lrx");
 
-const LRX = ({ contents, audioUrl }: LRXProps) => {
-  let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/, ""));
+const LRX = ({ doc, audioUrl }: LRXProps) => {
   let [transpose, setTranspose] = useLocalStorage<number>("transpose", 0);
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
   let [currentTime, setCurrentTime] = useState<number>(0);
 
-  let activeReportLines = lrxDoc.report.lines.filter(
+  let activeReportLines = doc.report.lines.filter(
     (line) => line.n === activeEntry?.bm.n
   );
 
@@ -69,12 +67,10 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
                 />
               </div>
               <Divider />
-              <Typography.Title level={2}>
-                {lrxDoc.title.title}
-              </Typography.Title>
+              <Typography.Title level={2}>{doc.title.title}</Typography.Title>
 
               <div className="lrx-document-wrapper">
-                {lrxDoc.blocks.map((block, i) => (
+                {doc.blocks.map((block, i) => (
                   <LRXBlock
                     block={block}
                     key={i}
