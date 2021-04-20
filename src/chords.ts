@@ -1,8 +1,21 @@
 const x = "x";
 
-const Majors = {
+interface ChordInfo {
+  fingers: [number, number | "x"][];
+  barres: {
+    fromString: number;
+    toString: number;
+    fret: number;
+  }[];
+  position: number;
+}
+
+type Chords = { [name: string]: ChordInfo[] };
+
+const Majors: Chords = {
   A: [
     {
+      // 02220x
       fingers: [
         [1, 0],
         [2, 2],
@@ -11,11 +24,13 @@ const Majors = {
         [5, 0],
         [6, x]
       ],
-      barres: []
+      barres: [],
+      position: 1
     }
   ],
   "A#": [
     {
+      // 13331x @1 fret1:5-1
       fingers: [
         [1, 1],
         [2, 3],
@@ -26,11 +41,12 @@ const Majors = {
       ],
       barres: [
         {
-          fromString: 6,
+          fromString: 5,
           toString: 1,
           fret: 1
         }
-      ]
+      ],
+      position: 1
     }
   ],
   B: [
@@ -49,7 +65,8 @@ const Majors = {
           toString: 1,
           fret: 2
         }
-      ]
+      ],
+      position: 1
     }
   ],
   C: [
@@ -62,7 +79,8 @@ const Majors = {
         [5, 3],
         [6, 0]
       ],
-      barres: []
+      barres: [],
+      position: 1
     },
     {
       fingers: [
@@ -73,7 +91,8 @@ const Majors = {
         [5, 3],
         [6, 3]
       ],
-      barres: []
+      barres: [],
+      position: 1
     }
   ],
   "C#": [
@@ -84,15 +103,16 @@ const Majors = {
         [3, 4],
         [4, 4],
         [5, 2],
-        [6, 2]
+        [6, x]
       ],
       barres: [
         {
-          fromString: 6,
+          fromString: 5,
           toString: 1,
           fret: 2
         }
-      ]
+      ],
+      position: 1
     }
   ],
   D: [
@@ -105,7 +125,8 @@ const Majors = {
         [5, x],
         [6, x]
       ],
-      barres: []
+      barres: [],
+      position: 1
     },
     {
       fingers: [
@@ -116,7 +137,8 @@ const Majors = {
         [5, 5],
         [6, 5]
       ],
-      barres: []
+      barres: [],
+      position: 1
     }
   ],
   "D#": [
@@ -149,7 +171,8 @@ const Majors = {
         [5, 2],
         [6, 0]
       ],
-      barres: []
+      barres: [],
+      position: 1
     }
   ],
   F: [
@@ -168,7 +191,8 @@ const Majors = {
           toString: 1,
           fret: 1
         }
-      ]
+      ],
+      position: 1
     }
   ],
   "F#": [
@@ -187,21 +211,11 @@ const Majors = {
           toString: 1,
           fret: 2
         }
-      ]
+      ],
+      position: 1
     }
   ],
   G: [
-    {
-      fingers: [
-        [1, 3],
-        [2, 3],
-        [3, 4],
-        [4, 5],
-        [5, 5],
-        [6, 3]
-      ],
-      barres: []
-    },
     {
       fingers: [
         [1, 3],
@@ -211,10 +225,9 @@ const Majors = {
         [5, 2],
         [6, 3]
       ],
-      barres: []
-    }
-  ],
-  "G#": [
+      barres: [],
+      position: 1
+    },
     {
       fingers: [
         [1, 3],
@@ -224,14 +237,28 @@ const Majors = {
         [5, 5],
         [6, 3]
       ],
+      barres: [],
+      position: 1
+    }
+  ],
+  "G#": [
+    {
+      fingers: [
+        [1, 2],
+        [2, 2],
+        [3, 3],
+        [4, 4],
+        [5, 4],
+        [6, 2]
+      ],
       barres: [
         {
           fromString: 6,
           toString: 1,
-          fret: 3
+          fret: 2
         }
       ],
-      position: 2
+      position: 3
     }
   ]
 };
@@ -344,6 +371,71 @@ const sevenths = {
       barres: []
     }
   ],
+  "A#7": [
+    {
+      fingers: [
+        [1, 1],
+        [2, 3],
+        [3, 1],
+        [4, 3],
+        [5, 1],
+        [6, x]
+      ],
+      barres: []
+    }
+  ],
+  C7: [
+    {
+      fingers: [
+        [1, 3],
+        [2, 5],
+        [3, 3],
+        [4, 5],
+        [5, 3],
+        [6, x]
+      ],
+      barres: [
+        {
+          fromString: 5,
+          toString: 1,
+          fret: 3
+        }
+      ]
+    }
+  ],
+  "C#7": [
+    {
+      fingers: [
+        [1, 2],
+        [2, 4],
+        [3, 2],
+        [4, 4],
+        [5, 2],
+        [6, x]
+      ],
+      barres: [
+        {
+          fromString: 5,
+          toString: 1,
+          fret: 2
+        }
+      ],
+      position: 3
+    }
+  ],
+  D7: [
+    {
+      fingers: [
+        [1, 2],
+        [2, 1],
+        [3, 2],
+        [4, 0],
+        [5, x],
+        [6, x]
+      ],
+      barres: []
+    }
+  ],
   E7: [
     {
       fingers: [
@@ -352,9 +444,28 @@ const sevenths = {
         [3, 1],
         [4, 0],
         [5, 2],
-        [6, x]
+        [6, 0]
       ],
       barres: []
+    }
+  ],
+  F7: [
+    {
+      fingers: [
+        [1, 1],
+        [2, 1],
+        [3, 2],
+        [4, 1],
+        [5, 3],
+        [6, 1]
+      ],
+      barres: [
+        {
+          fromString: 6,
+          toString: 1,
+          fret: 1
+        }
+      ]
     }
   ],
   G7: [
@@ -369,7 +480,25 @@ const sevenths = {
       ],
       barres: []
     }
-  ]
+  ],
+  "G#7": {
+    fingers: [
+      [1, 2],
+      [2, 2],
+      [3, 3],
+      [4, 2],
+      [5, 4],
+      [6, 2]
+    ],
+    barres: [
+      {
+        fromString: 6,
+        toString: 1,
+        fret: 2
+      }
+    ],
+    position: 3
+  }
 };
 
 export const chords: any = {

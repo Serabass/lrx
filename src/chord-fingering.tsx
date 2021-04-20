@@ -62,11 +62,11 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
         /**
          * The number of frets
          */
-        frets: 9,
+        frets: 5,
         /**
          * Default position if no positon is provided (first fret is 1)
          */
-        position: first.position ?? 1,
+        position: first.position,
 
         /**
          * These are the labels under the strings. Can be any string.
