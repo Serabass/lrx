@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { hot } from "react-hot-loader";
 // @ts-ignore
 import parser from "./parser.pegjs";
+import p from "pegjs";
 import "./lrx.sass";
 import { LRXDocument, LRXGeneralLineEntry } from "./types";
 import { LRXBlock } from "./LRXBlock";

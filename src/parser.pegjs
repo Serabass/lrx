@@ -94,7 +94,7 @@ LRXBlock
       = content: LyricLineContent+ _ timecode: Timecode? NL {
         let parts = [];
 
-        let rates = content.map(con => {
+        let rates = content.filter(c => !!c.content.trim()).map(con => {
           if (!con.bm) {
             return 0;
           }
