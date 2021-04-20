@@ -1,60 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { createUseLocalStorage } from "./useLocalStorage";
 import { chords } from "./chords";
 import { transposeChord } from "./transpose-chord";
 import "./chord-fingering.sass";
-import { Button, Col, Divider, Row } from "antd";
-
-export interface ChordFingeringNavProps {
-  chordName: any;
-  index: any;
-  length: any;
-  setIndex: any;
-}
-
-function ChordFingeringNav({
-  chordName,
-  index,
-  setIndex
-}: ChordFingeringNavProps) {
-  let prevDisabled = false;
-  let nextDisabled = false;
-
-  return (
-    <Row className="chord-fingering">
-      <Col
-        md={6}
-        onClick={() => {
-          if (prevDisabled) {
-            return;
-          }
-
-          setIndex(index - 1);
-        }}
-      >
-        <Button type="default" size="small">
-          &lt;
-        </Button>
-      </Col>
-      <Col md={12} style={{ textAlign: "center" }}>
-        {chordName}
-      </Col>
-      <Col
-        md={6}
-        onClick={() => {
-          if (nextDisabled) {
-            return;
-          }
-          setIndex(index + 1);
-        }}
-      >
-        <Button type="default" size="small">
-          &gt;
-        </Button>
-      </Col>
-    </Row>
-  );
-}
+import { Col, Divider, Row } from "antd";
+import * as svguitar from "svguitar";
 
 export interface ChordFingeringProps {
   chord: string;
@@ -62,6 +12,7 @@ export interface ChordFingeringProps {
 }
 
 export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
+  let ref = useRef<HTMLDivElement>(null);
   let useLocalStorage = createUseLocalStorage(`chord::${chord}::`);
   let [index, setIndex] = useLocalStorage("index", 0);
   let transposed = transposeChord(chord, transpose);
@@ -82,24 +33,216 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
     return null;
   }
 
-  let tuning = "eADGBE".split("");
-  let stringWidth = 12;
-  let f = first.split("");
+  if (ref.current) {
+    new svguitar.SVGuitarChord(ref.current)
+      .chord({
+        // array of [string, fret, text | options]
+        fingers: [
+          // finger at string 1, fret 2, with text '2'
+          [1, 2, "2"],
+
+          // finger at string 2, fret 3, with text '3', colored red
+          [2, 3, { text: "3", color: "#F00" }],
+
+          // finger is triangle shaped
+          [3, 3, { shape: "triangle" as any }],
+          [6, "x"]
+        ],
+
+        // optional: barres for barre chords
+        barres: [
+          {
+            fromString: 5,
+            toString: 1,
+            fret: 1,
+            text: "1",
+            color: "#0F0",
+            textColor: "#F00"
+          }
+        ],
+
+        // title of the chart (optional)
+        title: "F# minor",
+
+        // position (defaults to 1)
+        position: 2
+      })
+      .configure({
+        // Customizations (all optional, defaults shown)
+
+        /**
+         * Select between 'normal' and 'handdrawn'
+         */
+        style: "normal" as any,
+
+        /**
+         * The number of strings
+         */
+        strings: 6,
+
+        /**
+         * The number of frets
+         */
+        frets: 4,
+        /**
+         * Default position if no positon is provided (first fret is 1)
+         */
+        position: 1,
+
+        /**
+         * These are the labels under the strings. Can be any string.
+         */
+        tuning: ["E", "A", "D", "G", "B", "E"],
+
+        /**
+         * The position of the fret label (eg. "3fr")
+         */
+        fretLabelPosition: "right" as any,
+
+        /**
+         * The font size of the fret label
+         */
+        fretLabelFontSize: 38,
+
+        /**
+         * The font size of the string labels
+         */
+        tuningsFontSize: 28,
+
+        /**
+         * Size of a nut relative to the string spacing
+         */
+        nutSize: 0.65,
+
+        /**
+         * Color of a finger / nut
+         */
+        nutColor: "#000",
+
+        /**
+         * The color of text inside nuts
+         */
+        nutTextColor: "#FFF",
+
+        /**
+         * The size of text inside nuts
+         */
+        nutTextSize: 22,
+
+        /**
+         * stroke color of a nut. Defaults to the nut color if not set
+         */
+        nutStrokeColor: "#000000",
+
+        /**
+         * stroke width of a nut
+         */
+        nutStrokeWidth: 0,
+
+        /**
+         * stroke color of a barre chord. Defaults to the nut color if not set
+         */
+        barreChordStrokeColor: "#000000",
+
+        /**
+         * stroke width of a barre chord
+         */
+        barreChordStrokeWidth: 0,
+
+        /**
+         * Height of a fret, relative to the space between two strings
+         */
+        fretSize: 1.5,
+
+        /**
+         * The minimum side padding (from the guitar to the edge of the SVG) relative to the whole width.
+         * This is only applied if it's larger than the letters inside of the padding (eg the starting fret)
+         */
+        sidePadding: 0.2,
+
+        /**
+         * The font family used for all letters and numbers
+         */
+        fontFamily: 'Arial, "Helvetica Neue", Helvetica, sans-serif',
+
+        /**
+         * Default title of the chart if no title is provided
+         */
+        title: "F# minor",
+
+        /**
+         * Font size of the title. This is only the initial font size. If the title doesn't fit, the title
+         * is automatically scaled so that it fits.
+         */
+        titleFontSize: 48,
+
+        /**
+         * Space between the title and the chart
+         */
+        titleBottomMargin: 0,
+
+        /**
+         * Global color of the whole chart. Can be overridden with more specifig color settings such as
+         * @link titleColor or @link stringColor etc.
+         */
+        color: "#000000",
+
+        /**
+         * The background color of the chord diagram. By default the background is transparent. To set the background to transparent either set this to 'none' or undefined
+         */
+        backgroundColor: "none",
+
+        /**
+         * Barre chord rectangle border radius relative to the nutSize (eg. 1 means completely round endges, 0 means not rounded at all)
+         */
+        barreChordRadius: 0.25,
+
+        /**
+         * Size of the Xs and Os above empty strings relative to the space between two strings
+         */
+        emptyStringIndicatorSize: 0.6,
+
+        /**
+         * Global stroke width
+         */
+        strokeWidth: 2,
+
+        /**
+         * The width of the top fret (only used if position is 1)
+         */
+        topFretWidth: 10,
+
+        /**
+         * The color of the title (overrides color)
+         */
+        titleColor: "#000000",
+        /**
+         * The color of the strings (overrides color)
+         */
+        stringColor: "#000000",
+        /**
+         * The color of the fret position (overrides color)
+         */
+        fretLabelColor: "#000000",
+        /**
+         * The color of the tunings (overrides color)
+         */
+        tuningsColor: "#000000",
+        /**
+         * The color of the frets (overrides color)
+         */
+        fretColor: "#000000",
+        /**
+         * When set to true the distance between the chord diagram and the top of the SVG stayes the same,
+         * no matter if a title is defined or not.
+         */
+        fixedDiagramPosition: false
+      })
+      .draw();
+  }
 
   return (
     <div className="container p-0">
-      <Row>
-        <Col md={24}>
-          <ChordFingeringNav
-            chordName={transposed}
-            index={index}
-            length={fingering.length}
-            setIndex={(i: any) => {
-              setIndex(i);
-            }}
-          />
-        </Col>
-      </Row>
       <Row>
         <Col md={24}>
           <Divider />
@@ -107,83 +250,7 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
       </Row>
       <Row>
         <Col md={24}>
-          <svg
-            style={{
-              width: 100,
-              margin: "auto",
-              display: "block"
-            }}
-          >
-            {tuning.map((string, i) => (
-              <text
-                x={5 + stringWidth * i}
-                y={15}
-                key={i}
-                className="tuning-letter"
-              >
-                {string}
-              </text>
-            ))}
-
-            {tuning.map((string, i) => (
-              <line
-                key={i}
-                x1={8 + stringWidth * i}
-                y1={20}
-                x2={8 + stringWidth * i}
-                y2={100}
-                strokeWidth={0.5}
-                stroke="black"
-              />
-            ))}
-
-            {[1, 2, 3, 4, 5, 6, 7].map((fret, i) => (
-              <text
-                x={0}
-                y={30 + stringWidth * i}
-                className="fret-index"
-                key={i}
-              >
-                {fret}
-              </text>
-            ))}
-
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((fret) => {
-              let stroke = "rgba(0, 0, 0, 0.1)";
-
-              if (fret === 1) {
-                stroke = "rgba(0, 0, 0, 0.9)";
-              }
-
-              return (
-                <line
-                  key={fret}
-                  x1={8}
-                  y1={8 + stringWidth * fret}
-                  x2={8 + stringWidth * 5}
-                  y2={8 + stringWidth * fret}
-                  strokeWidth={0.5}
-                  stroke={stroke}
-                />
-              );
-            })}
-
-            {f.map((fret: any, string: any) => {
-              fret = parseInt(fret);
-              if (fret === 0) {
-                return null;
-              }
-              return (
-                <circle
-                  cx={8 + string * stringWidth}
-                  cy={26 + (fret - 1) * stringWidth}
-                  r={3}
-                  fill="black"
-                  key={string}
-                />
-              );
-            })}
-          </svg>
+          <div ref={ref} style={{ width: "200px" }} />
         </Col>
       </Row>
     </div>

@@ -52,6 +52,7 @@
     "sass": "^1.32.10",
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
+    "svguitar": "^1.12.2",
     "ts-enums": "0.0.6",
     "typescript": "^4.2.4",
     "webpack": "^5.34.0",

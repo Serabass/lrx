@@ -32,10 +32,6 @@ export function ChordTransposer({
           icon={<ArrowDownOutlined />}
           disabled={value <= min}
           onClick={() => {
-            if (value <= min) {
-              return;
-            }
-
             onValueChanged(value - 1);
           }}
         />
@@ -52,10 +48,6 @@ export function ChordTransposer({
           icon={<ArrowUpOutlined />}
           disabled={value >= max}
           onClick={() => {
-            if (value >= max) {
-              return;
-            }
-
             onValueChanged(value + 1);
           }}
         />

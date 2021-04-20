@@ -29,6 +29,9 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
   return (
     <div className="wrapper">
       <Row>
+        <Col></Col>
+      </Row>
+      <Row>
         <Col>
           {audioUrl ? (
             <audio
