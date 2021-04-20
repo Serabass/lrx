@@ -43,11 +43,9 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
         barres: first.barres,
 
         // title of the chart (optional)
-        title: transposed,
-
-        // position (defaults to 1)
-        position: 2
+        title: transposed
       });
+
       c.configure({
         // Customizations (all optional, defaults shown)
 
@@ -68,7 +66,7 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
         /**
          * Default position if no positon is provided (first fret is 1)
          */
-        position: 1,
+        position: first.position ?? 1,
 
         /**
          * These are the labels under the strings. Can be any string.
