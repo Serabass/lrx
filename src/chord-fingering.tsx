@@ -3,7 +3,7 @@ import { createUseLocalStorage } from "./useLocalStorage";
 import { chords } from "./chords";
 import { transposeChord } from "./transpose-chord";
 import "./chord-fingering.sass";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Divider, Row } from "antd";
 
 export interface ChordFingeringNavProps {
   chordName: any;
@@ -23,7 +23,7 @@ function ChordFingeringNav({
   return (
     <Row className="chord-fingering">
       <Col
-        md={4}
+        md={6}
         onClick={() => {
           if (prevDisabled) {
             return;
@@ -36,11 +36,11 @@ function ChordFingeringNav({
           &lt;
         </Button>
       </Col>
-      <Col md={16} style={{ textAlign: "center" }}>
+      <Col md={12} style={{ textAlign: "center" }}>
         {chordName}
       </Col>
       <Col
-        md={4}
+        md={6}
         onClick={() => {
           if (nextDisabled) {
             return;
@@ -88,14 +88,23 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
 
   return (
     <div className="container p-0">
-      <ChordFingeringNav
-        chordName={transposed}
-        index={index}
-        length={fingering.length}
-        setIndex={(i: any) => {
-          setIndex(i);
-        }}
-      />
+      <Row>
+        <Col md={24}>
+          <ChordFingeringNav
+            chordName={transposed}
+            index={index}
+            length={fingering.length}
+            setIndex={(i: any) => {
+              setIndex(i);
+            }}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={24}>
+          <Divider />
+        </Col>
+      </Row>
       <Row>
         <Col md={24}>
           <svg

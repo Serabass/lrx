@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Popover } from "antd";
 import { LRXChord, LRXChordsLine } from "./types";
 import { transposeChord } from "./transpose-chord";
-import { chords } from "./chords";
 import { ChordFingering } from "./chord-fingering";
 
 export interface LRXChordLineProps {
@@ -15,6 +14,7 @@ interface ChordProps {
   transpose: number;
   trigger?: "click" | "hover";
 }
+
 export function Chord({ chord, transpose, trigger = "click" }: ChordProps) {
   let [popoverVisible, setPopoverVisible] = useState(false);
   let chordName = `${chord.note}${chord.mod || ""}${chord.suffix || ""}`;
@@ -46,7 +46,9 @@ export function Chord({ chord, transpose, trigger = "click" }: ChordProps) {
   return (
     <span>
       {chord.space.start}
-      <Popover content={<ChordInfo chord={chordName} transpose={transpose} />}>
+      <Popover
+        content={<ChordFingering chord={chordName} transpose={transpose} />}
+      >
         <span className="chord-entry" {...events}>
           {chordName}
         </span>
@@ -64,18 +66,4 @@ export function LRXChordLine({ line, transpose = 0 }: LRXChordLineProps) {
       })}
     </p>
   );
-}
-
-export interface ChordInfoProps {
-  chord: any;
-  transpose: any;
-}
-
-export function ChordInfo({ chord, transpose }: ChordInfoProps) {
-  let contents = chords[chord];
-  if (!contents) {
-    contents = "...";
-  }
-
-  return <ChordFingering chord={chord} transpose={transpose} />;
 }
