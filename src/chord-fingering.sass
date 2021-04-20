@@ -1,0 +1,37 @@
+
+.fingering-table
+  background-color: white
+  color: black
+
+  td
+    width: 28px
+    text-align: center
+    vertical-align: middle
+    padding: 0
+
+    &.dot-td
+      border: 1px solid black
+
+    .dot
+      width: 10px
+      height: 10px
+      margin: auto
+      border-radius: 100%
+
+    &.highlight
+      .dot
+        background-color: rgba(0, 0, 0, 0.6)
+        transition: background-color 100ms ease-out
+
+  &:hover
+    td
+      &.highlight
+        .dot
+          background-color: rgba(0, 0, 0, 1)
+
+  td.fret-num
+    font-size: 14px
+
+  td.tuning-label
+    font-size: 14px
+    width: 30px

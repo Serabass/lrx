@@ -5,9 +5,9 @@ import parser from "./parser.pegjs";
 import "./lrx.sass";
 import { LRXDocument, LRXGeneralLineEntry } from "./types";
 import { LRXBlock } from "./LRXBlock";
-import "rsuite/dist/styles/rsuite-default.css";
+import "antd/dist/antd.css";
 import { Info } from "./info";
-import { Affix } from "rsuite";
+import { InputNumber, Typography, Affix } from "antd";
 
 export interface LRXProps {
   contents: string;
@@ -59,18 +59,17 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
       ) : null}
       <pre className="lrx-document">
         <div className="lrx-toolbox">
-          <input
-            type="number"
+          <InputNumber
             min={-6}
             max={6}
             className="transpose-input"
             value={transpose}
-            onChange={(e) => {
-              setTranspose(+e.target.value);
+            onChange={(value: number) => {
+              setTranspose(value);
             }}
           />
         </div>
-        <h1>{lrxDoc.title.title}</h1>
+        <Typography.Title level={2}>{lrxDoc.title.title}</Typography.Title>
 
         <div className="lrx-document-wrapper">
           {lrxDoc.blocks.map((block, i) => (

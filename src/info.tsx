@@ -1,7 +1,7 @@
 import React from "react";
 import { LRXGeneralLineEntry, LRXReportLine } from "./types";
 import p from "pegjs";
-import { Rate } from "rsuite";
+import { Rate } from "antd";
 
 export interface InfoProps {
   activeEntry?: LRXGeneralLineEntry;
@@ -16,7 +16,7 @@ export function Info({ activeEntry, activeReportLines }: InfoProps) {
           <h3>
             #{activeEntry._id}
             <span style={{ float: "right" }}>
-              <Rate value={activeEntry.bm?.rate?.rate ?? 0} readOnly />
+              <Rate value={activeEntry.bm?.rate?.rate ?? 0} />
               {activeEntry.bm?.rate?.rate ?? 0}
             </span>
           </h3>

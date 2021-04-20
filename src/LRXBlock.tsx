@@ -5,6 +5,7 @@ import {
   OnEntryClickedCallback
 } from "./types";
 import { LRXLine } from "./LRXLine";
+import { Typography } from "antd";
 
 export function LRXBlock({
   block,
@@ -32,10 +33,10 @@ export function LRXBlock({
 
   return (
     <div className="lrx-block">
-      <h3 className="lrx-block-header">
+      <Typography.Title level={4}>
         [{block.header.title}]
         {block.avgRate > 0 ? <sup>{block.avgRate}</sup> : null}
-      </h3>
+      </Typography.Title>
       {block.body.map((line, i) => {
         return (
           <LRXLine
