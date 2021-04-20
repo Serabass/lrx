@@ -16,7 +16,7 @@ export function Info({ activeEntry, activeReportLines }: InfoProps) {
           <h3>
             #{activeEntry._id}
             <span style={{ float: "right" }}>
-              <Rate value={activeEntry.bm?.rate?.rate ?? 0} />
+              <Rate value={activeEntry.bm?.rate?.rate ?? 0} disabled />
               {activeEntry.bm?.rate?.rate ?? 0}
             </span>
           </h3>
