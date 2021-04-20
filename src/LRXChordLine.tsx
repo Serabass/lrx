@@ -37,7 +37,12 @@ export function LRXChordLine({ line, transpose = 0 }: LRXChordLineProps) {
         return (
           <span key={i}>
             {chord.space.start}
-            <span className="chord-entry">{chordName}</span>
+            <span className="chord-entry">
+              {chordName}
+              {chord.bass ? (
+                <span>/{transposeChord(chord.bass.note, transpose)}</span>
+              ) : null}
+            </span>
             {chord.space.end}
           </span>
         );

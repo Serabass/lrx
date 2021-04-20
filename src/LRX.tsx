@@ -18,7 +18,9 @@ function time(value: number) {
   let ss = Math.floor(value % 60)
     .toString()
     .padStart(2, "0");
-  let ms = (value - Math.floor(value)).toString().padStart(3, "0");
+  let ms = Math.round((value - Math.floor(value)) * 1000)
+    .toString()
+    .padStart(3, "0");
 
   return `${mm}:${ss}.${ms}`;
 }

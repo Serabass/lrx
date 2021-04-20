@@ -56,10 +56,15 @@ export interface LRXChordSpace {
   end: string;
 }
 
+export interface LRXChordBass {
+  note: string;
+}
+
 export interface LRXChord {
   space: LRXChordSpace;
   note: string;
   mod: string;
+  bass: LRXChordBass;
   suffix: string;
 }
 

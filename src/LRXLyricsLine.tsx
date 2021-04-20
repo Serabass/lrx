@@ -41,8 +41,8 @@ export function LRXLyricsLine({
         }
 
         return (
-          <span>
-            <If condition={!!entry.content.trim()} key={i}>
+          <span key={i}>
+            <If condition={!!entry.content.trim()}>
               <span
                 className={
                   "lrx-lyrics-line-entry" +
@@ -56,7 +56,7 @@ export function LRXLyricsLine({
                 {entry.content}&nbsp;
               </span>
             </If>
-            <If condition={!entry.content.trim()} key={i}>
+            <If condition={!entry.content.trim()}>
               <span className="lrx-lyrics-line-empty-entry">
                 {entry.content}
               </span>

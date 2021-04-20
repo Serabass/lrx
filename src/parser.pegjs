@@ -222,6 +222,7 @@ Chord 'chord'
     note: Note
     mod: ChordMod?
     suffix: ChordSuffix?
+    bass: ChordBass?
     spaceEnd: _ {
       return {
         type: 'CHORD',
@@ -229,10 +230,19 @@ Chord 'chord'
           start: spaceStart.join(''),
           end: spaceEnd.join('')
         },
+        bass,
         note, mod, suffix,
         loc: location()
       };
     }
+
+ChordBass 'chord bass'
+ = '/' note: Note {
+  return {
+    type: 'CHORD_BASS',
+    note
+  };
+ }
 
 Note = [ABCDEFG]
 
