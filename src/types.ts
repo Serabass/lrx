@@ -12,12 +12,17 @@ export interface LRXGeneralLineEntry {
   content: string;
 }
 
-export interface Timecode {
+export interface Time {
   mm: number;
   ss: number;
   ms: number;
   value: number;
   text: string;
+}
+
+export interface Timecode {
+  start: Time;
+  end: Time;
 }
 
 export interface LRXGeneralLine {

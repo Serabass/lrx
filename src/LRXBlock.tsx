@@ -20,11 +20,14 @@ export function LRXBlock({
   transpose?: number;
 }) {
   let timeHighlightedLine = block.body.find((line) => {
-    if (!line.timecode) {
+    if (!line.timecode?.start || !line.timecode?.end) {
       return false;
     }
 
-    return line.timecode.value > currentTime - 5;
+    return (
+      line.timecode.start.value < currentTime &&
+      line.timecode.end.value > currentTime
+    );
   });
   return (
     <div className="lrx-block">

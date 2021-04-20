@@ -41,7 +41,13 @@ const LRX = ({ contents, audioUrl }: LRXProps) => {
         <audio
           src={audioUrl}
           controls
-          style={{ width: "100%" }}
+          style={{
+            width: "100%",
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            zIndex: 9999
+          }}
           onTimeUpdate={(e) => {
             setCurrentTime(e.currentTarget.currentTime);
           }}

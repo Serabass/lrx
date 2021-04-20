@@ -192,18 +192,25 @@ LRXReportLine =
 
 
 Timecode 'timecode'
-= '[' mm: Integer ':' ss: Integer '.' ms:Integer ']' {
+ = '[' start: Time '-' end: Time ']' {
   return {
     type: 'TIMECODE',
+    start,
+    end,
+  };
+}
+
+Time
+ = mm: Integer ':' ss: Integer '.' ms:Integer {
+  return {
+    type: 'TIME',
     mm,
     ss,
     ms,
     value: timeValue({mm, ss, ms}),
     text: text(),
   };
-}
-
-
+ }
 
 
 
