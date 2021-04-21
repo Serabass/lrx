@@ -1,27 +1,15 @@
 import React, { useState } from "react";
 import { createUseLocalStorage } from "./useLocalStorage";
-import { chords, Fingers } from "./chords";
+import { chords } from "./chords";
 import { transposeChord } from "./transpose-chord";
 import "./chord-fingering.sass";
 import { Col, Row } from "antd";
 import * as svguitar from "svguitar";
+import { parseChord } from "./chord-parser";
 
 export interface ChordFingeringProps {
   chord: string;
   transpose: number;
-}
-
-function parseChordData(input: Fingers) {
-  if (input instanceof Array) {
-    return input;
-  }
-
-  if (typeof input === "string") {
-    return input
-      .split("")
-      .map((l) => (l === "x" ? l : parseInt(l)))
-      .map((el, i) => [i + 1, el]);
-  }
 }
 
 export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
@@ -39,9 +27,9 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
     throw new Error(`Chord ${transposed} is not recognized`);
   }
 
-  let first = chordEntities[index];
+  let first = parseChord(chordEntities[index] as string);
 
-  let fingers = parseChordData(first.fingers);
+  let fingers = first.fingers;
 
   if (!first) {
     setIndex(0);

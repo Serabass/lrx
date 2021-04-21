@@ -6,12 +6,14 @@ import { LRXDocument } from "./types";
 // @ts-ignore
 import parser from "./parser.pegjs";
 import { createUseLocalStorage } from "./useLocalStorage";
+import { If } from "./if";
+import LRXEditor from "./LRXEditor";
 
 const { TabPane } = Tabs;
 const els: any[] = [];
 let root = document.getElementById("root");
 
-let useLocalStorage = createUseLocalStorage("app");
+let useLocalStorage = createUseLocalStorage("lrx:app");
 
 function Content() {
   let [activeTab, setActiveTab] = useLocalStorage("activeTab", "0");
@@ -26,10 +28,17 @@ function Content() {
       {els.map((el, i) => {
         let contents = el.innerHTML;
         let mp3 = el.dataset.mp3;
-        let lrxDoc: LRXDocument = parser.parse(contents.replace(/^\s+/, ""));
+        let editable = el.dataset.editable === "true";
+        let source = contents.replace(/^\s+/, "");
+        let lrxDoc: LRXDocument = parser.parse(source);
         return (
           <TabPane tab={lrxDoc.title.title} key={i}>
-            <LRX doc={lrxDoc} audioUrl={mp3} />
+            <If condition={editable}>
+              <LRXEditor source={source} audioUrl={mp3} />
+            </If>
+            <If condition={!editable}>
+              <LRX doc={lrxDoc} audioUrl={mp3} />
+            </If>
           </TabPane>
         );
       })}

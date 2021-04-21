@@ -14,16 +14,10 @@ interface ChordInfo {
   position: number;
 }
 
-type Chords = { [name: string]: ChordInfo[] };
+type Chords = { [name: string]: (ChordInfo | string)[] };
 
 const Majors: Chords = {
-  A: [
-    {
-      fingers: "02220x",
-      barres: [],
-      position: 1
-    }
-  ],
+  A: ["02220x [] at 1"],
   "A#": [
     {
       fingers: "01220x",
@@ -37,303 +31,48 @@ const Majors: Chords = {
       position: 1
     }
   ],
-  B: [
-    {
-      fingers: "244422",
-      barres: [
-        {
-          fromString: 6,
-          toString: 1,
-          fret: 2
-        }
-      ],
-      position: 1
-    }
-  ],
-  C: [
-    {
-      fingers: "010230",
-      barres: [],
-      position: 1
-    },
-    {
-      fingers: "355533",
-      barres: [],
-      position: 1
-    }
-  ],
-  "C#": [
-    {
-      fingers: "23442x",
-      barres: [
-        {
-          fromString: 5,
-          toString: 1,
-          fret: 2
-        }
-      ],
-      position: 1
-    }
-  ],
-  D: [
-    {
-      fingers: "2320xx",
-      barres: [],
-      position: 1
-    },
-    {
-      fingers: "567755",
-      barres: [],
-      position: 3
-    }
-  ],
-  "D#": [
-    {
-      fingers: "355533",
-      barres: [
-        {
-          fromString: 6,
-          toString: 1,
-          fret: 3
-        }
-      ],
-      position: 4
-    }
-  ],
-  E: [
-    {
-      fingers: "001220",
-      barres: [],
-      position: 1
-    }
-  ],
-  F: [
-    {
-      fingers: "112331",
-      barres: [
-        {
-          fromString: 6,
-          toString: 1,
-          fret: 1
-        }
-      ],
-      position: 1
-    }
-  ],
-  "F#": [
-    {
-      fingers: "223442",
-      barres: [
-        {
-          fromString: 6,
-          toString: 1,
-          fret: 2
-        }
-      ],
-      position: 1
-    }
-  ],
-  G: [
-    {
-      fingers: "300023",
-      barres: [],
-      position: 1
-    },
-    {
-      fingers: "334553",
-      barres: [],
-      position: 1
-    }
-  ],
-  "G#": [
-    {
-      fingers: "223442",
-      barres: [
-        {
-          fromString: 6,
-          toString: 1,
-          fret: 2
-        }
-      ],
-      position: 3
-    }
-  ]
+  B: ["244422 [6-1@2] at 1"],
+  C: ["010230 [] at 1", "355533 [6-1@3] at 1"],
+  "C#": ["23442x [5-1@2] at 1"],
+  D: ["2320xx [] at 1", "567755 [6-1@5] at 3"],
+  "D#": ["688866 [6-1@6] at 4"],
+  E: ["001220 [] at 1"],
+  F: ["112331 [6-1@1] at 1"],
+  "F#": ["223442 [6-1@2] at 1"],
+  G: ["300023 [] at 1", "334553 [6-1@3] at 1"],
+  "G#": ["223442 [6-1@2] at 2"]
 };
 
 const minors: Chords = {
-  Am: [
-    {
-      fingers: "01220x",
-      barres: [],
-      position: 1
-    }
-  ],
-  Bm: [
-    {
-      fingers: "234422",
-      barres: [],
-      position: 1
-    }
-  ],
-  Cm: [
-    {
-      fingers: "345533",
-      barres: [],
-      position: 1
-    }
-  ],
-  "C#m": [
-    {
-      fingers: "456644",
-      barres: [],
-      position: 1
-    }
-  ],
-  Dm: [
-    {
-      fingers: "1320xx",
-      barres: [],
-      position: 1
-    }
-  ],
-  "D#m": [
-    {
-      fingers: "658866",
-      barres: [],
-      position: 1
-    }
-  ],
-  Em: [
-    {
-      fingers: "000220",
-      barres: [],
-      position: 1
-    }
-  ],
-  Fm: [
-    {
-      fingers: "111331",
-      barres: [],
-      position: 1
-    }
-  ],
-  Gm: [
-    {
-      fingers: "333553",
-      barres: [],
-      position: 1
-    }
-  ]
+  Am: ["01220x [] at 1"],
+  Bm: ["234422 [] at 1"],
+  Cm: ["345533 [] at 1"],
+  "C#m": ["456644 [] at 1"],
+  Dm: ["1320xx [] at 1"],
+  "D#m": ["658866 [] at 1"],
+  Em: ["000220 [] at 1"],
+  Fm: ["111331 [] at 1"],
+  Gm: ["333553 [] at 1"]
 };
 
 const sevenths: Chords = {
-  A7: [
-    {
-      fingers: "02020x",
-      barres: [],
-      position: 1
-    }
-  ],
-  "A#7": [
-    {
-      fingers: "13131x",
-      barres: [],
-      position: 1
-    }
-  ],
-  C7: [
-    {
-      fingers: "35353x",
-      barres: [
-        {
-          fromString: 5,
-          toString: 1,
-          fret: 3
-        }
-      ],
-      position: 1
-    }
-  ],
-  "C#7": [
-    {
-      fingers: "24242x",
-      barres: [
-        {
-          fromString: 5,
-          toString: 1,
-          fret: 2
-        }
-      ],
-      position: 3
-    }
-  ],
-  D7: [
-    {
-      fingers: "2120xx",
-      barres: [],
-      position: 1
-    }
-  ],
-  E7: [
-    {
-      fingers: "001020",
-      barres: [],
-      position: 1
-    }
-  ],
-  F7: [
-    {
-      fingers: "112131",
-      barres: [
-        {
-          fromString: 6,
-          toString: 1,
-          fret: 1
-        }
-      ],
-      position: 1
-    }
-  ],
-  G7: [
-    {
-      fingers: "10023",
-      barres: [],
-      position: 1
-    }
-  ],
-  "G#7": [
-    {
-      fingers: "223242",
-      barres: [
-        {
-          fromString: 6,
-          toString: 1,
-          fret: 2
-        }
-      ],
-      position: 3
-    }
-  ]
+  A7: ["02020x [] at 1"],
+  "A#7": ["13131x [] at 1"],
+  C7: ["35353x [5-1@3] at 1"],
+  "C#7": ["24242x [5-1@2] at 3"],
+  D7: ["2120xx [] at 1"],
+  E7: ["001020 [] at 1"],
+  F7: ["112131 [6-1@1] at 1"],
+  G7: ["10023 [] at 1"],
+  "G#7": ["223242 [] at 1"]
 };
 
 const sixths: Chords = {
-  Dm6: [
-    {
-      fingers: "0320xx",
-      barres: [],
-      position: 1
-    }
-  ]
+  Dm6: ["0320xx [] at 1"]
 };
 
 const augs: Chords = {
-  Faug: [
-    {
-      fingers: "x6678x",
-      barres: [],
-      position: 1
-    }
-  ]
+  Faug: ["x6678x [] at 1"]
 };
 
 export const chords: Chords = {
