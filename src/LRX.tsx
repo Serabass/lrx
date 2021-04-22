@@ -23,6 +23,7 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
   let [transpose, setTranspose] = useLocalStorage<number>("transpose", 0);
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
   let [currentTime, setCurrentTime] = useState<number>(0);
+  let maxRate = Math.max(...doc.blocks.map((b) => b.avgRate));
 
   let activeReportLines = doc.report.lines.filter(
     (line) => line.n === activeEntry?.bm.n
@@ -73,6 +74,7 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
               <div className="lrx-document-wrapper">
                 {doc.blocks.map((block, i) => (
                   <LRXBlock
+                    maxRate={maxRate}
                     block={block}
                     key={i}
                     transpose={transpose}

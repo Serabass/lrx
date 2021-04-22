@@ -5,15 +5,17 @@ import {
   OnEntryClickedCallback
 } from "./types";
 import { LRXLine } from "./LRXLine";
-import { Typography } from "antd";
+import { Progress, Typography } from "antd";
 
 export function LRXBlock({
+  maxRate,
   block,
   onEntryClicked = () => {},
   activeEntry,
   currentTime = 0,
   transpose = 0
 }: {
+  maxRate: number;
   block: LRXDocumentBlock;
   onEntryClicked: OnEntryClickedCallback;
   activeEntry?: LRXGeneralLineEntry;
@@ -30,9 +32,9 @@ export function LRXBlock({
       line.timecode.end.value > currentTime
     );
   });
-
   return (
     <div className="lrx-block">
+      <Progress percent={(block.avgRate / maxRate) * 100} />
       <Typography.Title level={4}>
         [{block.header.title}]
         {block.avgRate > 0 ? <sup>{block.avgRate}</sup> : null}
