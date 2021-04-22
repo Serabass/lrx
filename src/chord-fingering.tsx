@@ -15,16 +15,15 @@ export interface ChordFingeringProps {
 export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
   let useLocalStorage = createUseLocalStorage(`chord::${chord}::`);
   let [index, setIndex] = useLocalStorage("index", 0);
-  let transposed = transposeChord(chord, transpose);
-  let chordEntities = chords[transposed];
+  let chordEntities = chords[chord];
   let [container, setContainer] = useState<svguitar.SVGuitarChord | null>();
 
   if (!chordEntities) {
-    throw new Error(`Chord ${transposed} is not recognized`);
+    throw new Error(`Chord ${chord} is not recognized`);
   }
 
   if (chordEntities.length === 0) {
-    throw new Error(`Chord ${transposed} is not recognized`);
+    throw new Error(`Chord ${chord} is not recognized`);
   }
 
   let first = parseChord(chordEntities[index] as string);
@@ -46,7 +45,7 @@ export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
         barres: first.barres,
 
         // title of the chart (optional)
-        title: transposed
+        title: chord
       });
 
       c.configure({

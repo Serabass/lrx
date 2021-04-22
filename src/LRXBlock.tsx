@@ -39,21 +39,23 @@ export function LRXBlock({
         [{block.header.title}]
         {block.avgRate > 0 ? <sup>{block.avgRate}</sup> : null}
       </Typography.Title>
-      {block.body.map((line, i) => {
-        return (
-          <LRXLine
-            line={line}
-            timeHighlight={timeHighlightedLine === line}
-            key={i}
-            transpose={transpose}
-            currentTime={currentTime}
-            activeEntry={activeEntry}
-            onEntryClicked={(entry) => {
-              onEntryClicked(entry);
-            }}
-          />
-        );
-      })}
+      <Typography.Paragraph>
+        {block.body.map((line, i) => {
+          return (
+            <LRXLine
+              line={line}
+              timeHighlight={timeHighlightedLine === line}
+              key={i}
+              transpose={transpose}
+              currentTime={currentTime}
+              activeEntry={activeEntry}
+              onEntryClicked={(entry) => {
+                onEntryClicked(entry);
+              }}
+            />
+          );
+        })}
+      </Typography.Paragraph>
     </div>
   );
 }
