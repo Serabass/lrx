@@ -6,6 +6,19 @@ import parser from "./parser.pegjs";
 import { hot } from "react-hot-loader";
 import { Controlled as CodeMirror } from "react-codemirror2";
 
+export interface PEGSyntaxError extends Error {
+  location: {
+    start: {
+      line: number;
+      column: number;
+    };
+    end: {
+      line: number;
+      column: number;
+    };
+  };
+}
+
 export interface LRXEditorProps {
   source: string;
   audioUrl: string;
@@ -42,6 +55,9 @@ const LRXEditor = ({ source, audioUrl }: LRXEditorProps) => {
             let lrxDoc = parser.parse(src) as LRXDocument;
             return <LRX doc={lrxDoc} audioUrl={audioUrl} />;
           } catch (e) {
+            let err = e as PEGSyntaxError;
+            let { start } = err.location;
+            let { end } = err.location;
             return (
               <Alert
                 message={
@@ -49,10 +65,10 @@ const LRXEditor = ({ source, audioUrl }: LRXEditorProps) => {
                     <p>{e.message}</p>
                     <p>at</p>
                     <p>
-                      {e.location.start.line}:{e.location.start.column}
+                      {start.line}:{start.column}
                     </p>
                     <p>
-                      {e.location.end.line}:{e.location.end.column}
+                      {end.line}:{end.column}
                     </p>
                   </pre>
                 }

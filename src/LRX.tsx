@@ -10,6 +10,7 @@ import { Typography, Affix, Row, Col, Divider } from "antd";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import { ChordTransposer } from "./chord-transposer";
 import { createUseLocalStorage } from "./useLocalStorage";
+import { If } from "./if";
 
 export interface LRXProps {
   doc: LRXDocument;
@@ -31,7 +32,7 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
     <div className="wrapper">
       <Row>
         <Col md={24}>
-          {audioUrl ? (
+          <If condition={!!audioUrl}>
             <audio
               src={audioUrl}
               controls
@@ -47,7 +48,7 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
                 console.log(e.currentTarget.currentTime);
               }}
             />
-          ) : null}
+          </If>
         </Col>
       </Row>
 
