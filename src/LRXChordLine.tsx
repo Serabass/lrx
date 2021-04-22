@@ -48,6 +48,7 @@ export function Chord({ chord, transpose, trigger = "click" }: ChordProps) {
       {chord.space.start}
       <Popover
         content={<ChordFingering chord={chordName} transpose={transpose} />}
+        placement="bottom"
       >
         <span className="chord-entry" {...events}>
           {chordName}
