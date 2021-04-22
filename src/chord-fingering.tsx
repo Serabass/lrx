@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { createUseLocalStorage } from "./useLocalStorage";
 import { chords } from "./chords";
-import { transposeChord } from "./transpose-chord";
 import "./chord-fingering.sass";
 import { Col, Row } from "antd";
 import * as svguitar from "svguitar";
@@ -9,10 +8,9 @@ import { parseChord } from "./chord-parser";
 
 export interface ChordFingeringProps {
   chord: string;
-  transpose: number;
 }
 
-export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
+export function ChordFingering({ chord }: ChordFingeringProps) {
   let useLocalStorage = createUseLocalStorage(`chord::${chord}::`);
   let [index, setIndex] = useLocalStorage("index", 0);
   let chordEntities = chords[chord];
