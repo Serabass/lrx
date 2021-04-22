@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { Alert, Col, Row } from "antd";
 import LRX from "./LRX";
 import { LRXDocument } from "./types";
-// @ts-ignore
 import parser from "./parser.pegjs";
 import { hot } from "react-hot-loader";
 import { Controlled as CodeMirror } from "react-codemirror2";
-import { Editor } from "codemirror";
 
 export interface LRXEditorProps {
   source: string;
@@ -15,24 +13,23 @@ export interface LRXEditorProps {
 
 const LRXEditor = ({ source, audioUrl }: LRXEditorProps) => {
   let [sourceText, setSourceText] = useState(source);
-  let [editor, setEditor] = useState<Editor>();
   let src = sourceText.replace(/^\s+/, "");
-  let ref = React.createRef();
+  let ed: CodeMirror | null = null;
 
   return (
     <Row className="lrx-editor">
       <Col md={12}>
         <CodeMirror
-          ref={() => ref}
+          ref={(c) => {
+            ed = c;
+          }}
           value={src}
           options={{
             mode: "lrx",
             theme: "material",
             lineNumbers: true
           }}
-          onRenderLine={(editor, line, element) => {
-            setEditor(editor);
-          }}
+          onRenderLine={(editor, line, element) => {}}
           onBeforeChange={(editor, data, value) => {
             setSourceText(value);
           }}
