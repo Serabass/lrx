@@ -70,6 +70,9 @@
 ~2 Комментарий к строке №2
 ~2 Комментарий к строке №2
 
+
+
+
 </script>
 
 <script type="text/lrx" data-mp3="ariya.mp3">
@@ -186,6 +189,9 @@ A             Bm
 ===
 
 ~1 Комментарий к строке №1
+
+
+
 
 </script>
 
@@ -311,19 +317,48 @@ F		        G
 
 ~1 Комментарий к строке №1
 
+
+
+
 </script>
 
-<script type="text/lrx">
+<!--
+<pre id="auto-generated">
 Песня
 
 [Интро]
-Am G F G
+%chords%
 
 ===
 
 ~1 Комментарий к строке №1
 
+</pre>
+
+<script type="text/javascript">
+
+  let el = document.getElementById("auto-generated");
+  el.innerText = el.innerText
+    .replace("%chords%", () => {
+      let notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
+      let mods = ["", "m", "7", "6", "5", "sus4", "sus2", "m6", "m7", "aug", "dim"];
+      let ex = ["add9", "9", "add11", "11", "add13", "13"];
+
+      let result = [];
+      for (let note of notes) {
+        for (let mod of mods) {
+          for (let e of ex) {
+            let chord = `${note}${mod}${e}`;
+            result.push(chord);
+          }
+        }
+      }
+
+      return result.join(' ');
+    });
+  console.log(el.innerText);
 </script>
+-->
 
 </body>
 </html>
