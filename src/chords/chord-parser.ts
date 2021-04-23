@@ -24,7 +24,7 @@ export function parseChord(input: string): Chord {
         return [];
       }
 
-      let chunks = data.split(/\s*,\s*/).map((chunk) => {
+      return data.split(/\s*,\s*/).map((chunk) => {
         let match = chunk.match(/^(\d+)-(\d+)@(\d+)$/);
         if (!match) {
           throw new Error("unknown format");
@@ -32,7 +32,6 @@ export function parseChord(input: string): Chord {
         let [, fromString, toString, fret] = match.map((i) => parseInt(i));
         return { fromString, toString, fret };
       });
-      return chunks;
     })(_barres),
     position: parseInt(_position)
   };

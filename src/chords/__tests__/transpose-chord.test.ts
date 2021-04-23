@@ -1,4 +1,4 @@
-import { transposeChord } from "../src/transpose-chord";
+import { transposeChord } from "../transpose-chord";
 
 describe("transposeChord function", () => {
   it("Simple test", () => {

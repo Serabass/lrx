@@ -1,4 +1,4 @@
-import { parseChord } from "../src/chord-parser";
+import { parseChord } from "../chord-parser";
 
 const x = "x";
 
@@ -44,5 +44,11 @@ describe("ChordParser tests", () => {
       }
     ]);
     expect(parseChord("35353x [5-1@3] at 1").position).toBe(1);
+  });
+
+  it("Wrong format", () => {
+    expect(() => parseChord("35353x [___________] at 1").position).toThrow(
+      "unknown format"
+    );
   });
 });
