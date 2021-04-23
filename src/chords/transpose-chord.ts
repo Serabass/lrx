@@ -12,7 +12,7 @@ export function transposeChord(chord: string, amount: number) {
     "E#": "F",
     "B#": "C"
   };
-  return chord.replace(/[CDEFGAB](b|#)?/g, function (match) {
+  return chord.replace(/[CDEFGAB]([b#])?/g, function (match) {
     let i =
       (scale.indexOf(normalizeMap[match] ? normalizeMap[match] : match) +
         amount) %
