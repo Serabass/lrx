@@ -3,7 +3,7 @@ import {
   LRXGeneralLine,
   LRXGeneralLineEntry,
   OnEntryClickedCallback
-} from "./types";
+} from "../common/types";
 import { LRXChordLine } from "./LRXChordLine";
 import { LRXLyricsLine } from "./LRXLyricsLine";
 

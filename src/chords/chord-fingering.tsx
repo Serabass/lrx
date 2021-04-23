@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { createUseLocalStorage } from "./useLocalStorage";
 import { chords } from "./chords";
 import "./chord-fingering.sass";
 import { Col, Row } from "antd";
 import * as svguitar from "svguitar";
 import { parseChord } from "./chord-parser";
+import { createUseLocalStorage } from "../hooks/useLocalStorage";
 
 export interface ChordFingeringProps {
   chord: string;

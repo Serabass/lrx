@@ -7,16 +7,16 @@ import {
   LRXDocument,
   LRXDocumentBlock,
   LRXGeneralLineEntry
-} from "./types";
+} from "../common/types";
 import { LRXBlock } from "./LRXBlock";
 import "antd/dist/antd.css";
-import { Info } from "./info";
 import { Typography, Affix, Row, Col, Divider } from "antd";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
-import { ChordTransposer } from "./chord-transposer";
-import { createUseLocalStorage } from "./useLocalStorage";
-import { If } from "./if";
 import { Chord } from "./LRXChordLine";
+import { createUseLocalStorage } from "../hooks/useLocalStorage";
+import { If } from "../common/if";
+import { ChordTransposer } from "../chords/chord-transposer";
+import { Info } from "../info";
 
 export interface LRXProps {
   doc: LRXDocument;

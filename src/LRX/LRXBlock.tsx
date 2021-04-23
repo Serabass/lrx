@@ -3,7 +3,7 @@ import {
   LRXDocumentBlock,
   LRXGeneralLineEntry,
   OnEntryClickedCallback
-} from "./types";
+} from "../common/types";
 import { LRXLine } from "./LRXLine";
 import { Progress, Typography } from "antd";
 

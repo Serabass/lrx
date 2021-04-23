@@ -1,13 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
-import LRX from "./LRX";
 import { Tabs } from "antd";
-import { LRXDocument } from "./types";
-// @ts-ignore
 import parser from "./parser.pegjs";
-import { createUseLocalStorage } from "./useLocalStorage";
-import { If } from "./if";
-import LRXEditor from "./LRXEditor";
+import LRX from "./LRX/LRX";
+import { LRXDocument } from "./common/types";
+import { createUseLocalStorage } from "./hooks/useLocalStorage";
+import { If } from "./common/if";
+import LRXEditor from "./LRX/LRXEditor";
 
 const { TabPane } = Tabs;
 const els: any[] = [];

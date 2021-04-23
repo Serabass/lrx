@@ -3,8 +3,8 @@ import {
   LRXGeneralLine,
   LRXGeneralLineEntry,
   OnEntryClickedCallback
-} from "./types";
-import { If } from "./if";
+} from "../common/types";
+import { If } from "../common/if";
 
 export interface LRXLyricsLineProps {
   line: LRXGeneralLine;
