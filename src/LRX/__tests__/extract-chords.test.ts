@@ -4,7 +4,7 @@ import * as path from "path";
 import { buildChordName, extractChords } from "../extract-chords";
 
 describe("Extract Chords", function () {
-  let file = path.join(__dirname, "../parser.pegjs");
+  let file = path.join(__dirname, "../../parser.pegjs");
   let grammar = fs.readFileSync(file).toString("utf-8");
   let parser = pegjs.generate(grammar);
   let source = `The song
@@ -31,7 +31,7 @@ Lyrics~1+5
     expect(1).toBe(1);
     let lrxDoc = parser.parse(source);
     expect(lrxDoc).not.toBeNull();
-    let chords = extractChords(lrxDoc);
+    let chords = extractChords(lrxDoc).map((chord) => buildChordName(chord));
     expect(chords.sort()).toEqual(["A", "Am", "B", "C", "Dm", "E", "G"]);
   });
 });

@@ -16,8 +16,21 @@ export function extractChords(doc: LRXDocument) {
     }, [])
     .reduce((a, b) => [...a, ...b]);
 
+  function prepare(chord: LRXChord) {
+    return {
+      note: chord.note,
+      suffix: chord.suffix,
+      mod: chord.mod,
+      bass: chord.bass
+    };
+  }
+
   for (let chord of line) {
-    if (!res.find((el) => JSON.stringify(chord) === JSON.stringify(el))) {
+    if (
+      !res.find((el) => {
+        return JSON.stringify(prepare(chord)) === JSON.stringify(prepare(el));
+      })
+    ) {
       res.push(chord);
     }
   }
