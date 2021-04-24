@@ -9,7 +9,6 @@ import { createUseLocalStorage } from "../hooks/useLocalStorage";
 import { LRXChord } from "../common/types";
 import { buildChordName } from "../LRX/extract-chords";
 import { transposeChord } from "./transpose-chord";
-import ReactChord from "@tombatossals/react-chords/lib/Chord";
 import { hot } from "react-hot-loader";
 
 export interface ChordFingeringProps {
@@ -17,34 +16,7 @@ export interface ChordFingeringProps {
   transpose?: number;
 }
 
-export function ChordFingering({ chord }: ChordFingeringProps) {
-  const chord1 = {
-    frets: [1, 3, 3, 2, 1, 1],
-    fingers: [1, 3, 4, 2, 1, 1],
-    barres: [1],
-    capo: false
-  };
-  const instrument = {
-    strings: 6,
-    fretsOnChord: 4,
-    name: "Guitar",
-    keys: [],
-    tunings: {
-      standard: ["E", "A", "D", "G", "B", "E"]
-    }
-  };
-  const lite = false; // defaults to false if omitted
-  return (
-    <div>
-      <div>
-        <ReactChord chord={chord1} instrument={instrument} lite={lite} />
-      </div>
-      <div style={{ textAlign: "center", fontWeight: "bold" }}>Am</div>
-    </div>
-  );
-}
-
-export function ChordFingering2({ chord, transpose = 0 }: ChordFingeringProps) {
+export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
   let transposed = transposeChord(chord, transpose);
   let transposedChordName = buildChordName(transposed);
   let useLocalStorage = createUseLocalStorage(
