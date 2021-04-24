@@ -15,10 +15,12 @@ export interface ChordFingeringProps {
 }
 
 export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
-  let useLocalStorage = createUseLocalStorage(`chord::${chord}::`);
-  let [index, setIndex] = useLocalStorage("index", 0);
   let transposed = transposeChord(chord, transpose);
   let transposedChordName = buildChordName(transposed);
+  let useLocalStorage = createUseLocalStorage(
+    `chord::${transposedChordName}::`
+  );
+  let [index, setIndex] = useLocalStorage("index", 0);
   let chordEntities = chords[transposedChordName];
   let [container, setContainer] = useState<svguitar.SVGuitarChord | null>();
 
