@@ -27,9 +27,9 @@ export function extractChords(doc: LRXDocument) {
 
   for (let chord of line) {
     if (
-      !res.find((el) => {
-        return JSON.stringify(prepare(chord)) === JSON.stringify(prepare(el));
-      })
+      !res.find(
+        (el) => JSON.stringify(prepare(chord)) === JSON.stringify(prepare(el))
+      )
     ) {
       res.push(chord);
     }
