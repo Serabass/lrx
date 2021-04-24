@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { chords } from "./chords";
 import "./chord-fingering.sass";
-import { Col, Row } from "antd";
+import { Col } from "antd";
 import * as svguitar from "svguitar";
 import { parseChord } from "./chord-parser";
 import { createUseLocalStorage } from "../hooks/useLocalStorage";
+import { LRXChord } from "../common/types";
+import { buildChordName } from "../LRX/extract-chords";
 
 export interface ChordFingeringProps {
-  chord: string;
+  chord: LRXChord;
 }
 
 export function ChordFingering({ chord }: ChordFingeringProps) {
   let useLocalStorage = createUseLocalStorage(`chord::${chord}::`);
   let [index, setIndex] = useLocalStorage("index", 0);
-  let chordEntities = chords[chord];
+  let chordName = buildChordName(chord);
+  let chordEntities = chords[chordName];
   let [container, setContainer] = useState<svguitar.SVGuitarChord | null>();
 
   if (!chordEntities) {
@@ -43,7 +46,7 @@ export function ChordFingering({ chord }: ChordFingeringProps) {
         barres: first.barres,
 
         // title of the chart (optional)
-        title: chord
+        title: chordName
       });
 
       c.configure({
@@ -223,17 +226,13 @@ export function ChordFingering({ chord }: ChordFingeringProps) {
   }
 
   return (
-    <div className="container p-0">
-      <Row>
-        <Col md={24}>
-          <div
-            ref={(ref) => {
-              createElement(ref);
-            }}
-            style={{ width: "100px" }}
-          />
-        </Col>
-      </Row>
-    </div>
+    <Col md={3}>
+      <div
+        ref={(ref) => {
+          createElement(ref);
+        }}
+        style={{ width: "100px" }}
+      />
+    </Col>
   );
 }
