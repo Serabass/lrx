@@ -7,18 +7,16 @@ import { Chord, parseChord } from "./chord-parser";
 import { createUseLocalStorage } from "../hooks/useLocalStorage";
 import { LRXChord } from "../common/types";
 import { buildChordName } from "../LRX/extract-chords";
-import { transposeChord } from "./transpose-chord";
 
 export interface ChordFingeringProps {
   chord: LRXChord;
-  transpose: number;
+  transpose?: number;
 }
 
-export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
+export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
   let useLocalStorage = createUseLocalStorage(`chord::${chord}::`);
   let [index, setIndex] = useLocalStorage("index", 0);
   let chordName = buildChordName(chord);
-  chordName = transposeChord(chordName, transpose);
   let chordEntities = chords[chordName];
   let [container, setContainer] = useState<svguitar.SVGuitarChord | null>();
 
