@@ -48,5 +48,7 @@ describe("Chord function", () => {
     expect(chord`Dm7/C`.suffix).toBe("m7");
     expect(chord`Dm7/C`.mod).toBe("");
     expect(chord`Dm7/C`.bass).toEqual({ note: "C" });
+    expect(chord`Dm7/C`.space.start).toBe("");
+    expect(chord`Dm7/C`.space.end).toBe("");
   });
 });
