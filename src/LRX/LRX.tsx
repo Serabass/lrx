@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { hot } from "react-hot-loader";
-// @ts-ignore
 import "./lrx.sass";
 import {
   LRXChordsLine,
   LRXDocument,
-  LRXDocumentBlock,
   LRXGeneralLineEntry
 } from "../common/types";
 import { LRXBlock } from "./LRXBlock";
@@ -27,6 +25,7 @@ let useLocalStorage = createUseLocalStorage("lrx");
 
 function extractChords(doc: LRXDocument) {
   let res: string[] = [];
+  debugger;
   let line = doc.blocks.reduce<string[][]>((a, b) => {
     return [
       ...a,
@@ -38,8 +37,9 @@ function extractChords(doc: LRXDocument) {
           })
         )
     ];
-  }, [] as LRXDocumentBlock[]);
+  }, []);
 
+  debugger;
   for (let chords of line) {
     for (let chord of chords) {
       for (let el of chord) {
@@ -54,11 +54,13 @@ function extractChords(doc: LRXDocument) {
 }
 
 const LRX = ({ doc, audioUrl }: LRXProps) => {
+  debugger;
   let [transpose, setTranspose] = useLocalStorage<number>("transpose", 0);
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
   let [currentTime, setCurrentTime] = useState<number>(0);
   let maxRate = Math.max(...doc.blocks.map((b) => b.avgRate));
   let songChords = extractChords(doc);
+  debugger;
 
   let activeReportLines = doc.report.lines.filter(
     (line) => line.n === activeEntry?.bm.n
