@@ -5,21 +5,19 @@ export function buildChordName(chord: LRXChord) {
 }
 
 export function extractChords(doc: LRXDocument) {
-  let res: string[] = [];
+  let res: LRXChord[] = [];
   let line = doc.blocks
-    .reduce<string[][]>((a, b) => {
+    .reduce<LRXChord[][]>((a, b) => {
       let map = b.body
         .filter((l: any) => l.type === "CHORDS_LINE")
-        .map((l: LRXLine) =>
-          (l as LRXChordsLine).chords.map((chord) => buildChordName(chord))
-        )
+        .map((l: LRXLine) => (l as LRXChordsLine).chords)
         .reduce((a, b) => [...a, ...b], []);
       return [...a, map];
     }, [])
     .reduce((a, b) => [...a, ...b]);
 
   for (let chord of line) {
-    if (!res.includes(chord)) {
+    if (!res.find((el) => JSON.stringify(chord) === JSON.stringify(el))) {
       res.push(chord);
     }
   }

@@ -33,12 +33,12 @@ export interface Timecode {
 }
 export interface LRXLine {
   type: string;
+  timecode?: Timecode;
 }
 
 export interface LRXGeneralLine extends LRXLine {
   avgRate: number;
   content: LRXGeneralLineEntry[];
-  timecode?: Timecode;
 }
 
 export interface LRXDocumentBlock {
