@@ -4,7 +4,7 @@ import "./lrx.sass";
 import { LRXDocument, LRXGeneralLineEntry } from "../common/types";
 import { LRXBlock } from "./LRXBlock";
 import "antd/dist/antd.css";
-import { Typography, Affix, Row, Col, Divider } from "antd";
+import { Typography, Affix, Row, Col, Divider, Button } from "antd";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import { createUseLocalStorage } from "../hooks/useLocalStorage";
 import { If } from "../common/if";
@@ -22,6 +22,10 @@ let useLocalStorage = createUseLocalStorage("lrx");
 
 const LRX = ({ doc, audioUrl }: LRXProps) => {
   let [transpose, setTranspose] = useLocalStorage<number>("transpose", 0);
+  let [showFingerings, setShowFingerings] = useLocalStorage<boolean>(
+    "showFingerings",
+    true
+  );
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
   let [currentTime, setCurrentTime] = useState<number>(0);
   let maxRate = Math.max(...doc.blocks.map((b) => b.avgRate));
@@ -74,13 +78,23 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
 
               <ErrorBoundary>
                 <div>
-                  <Row>
-                    {songChords.map((chord, i) => (
-                      <Col md={3} key={i}>
-                        <ChordFingering chord={chord} transpose={transpose} />
-                      </Col>
-                    ))}
-                  </Row>
+                  <Button
+                    type="dashed"
+                    onClick={() => setShowFingerings(!showFingerings)}
+                  >
+                    Аккорды
+                  </Button>
+                  <If condition={showFingerings}>
+                    <Divider />
+                    <Row>
+                      {songChords.map((chord, i) => (
+                        <Col md={3} key={i}>
+                          <ChordFingering chord={chord} transpose={transpose} />
+                        </Col>
+                      ))}
+                    </Row>
+                    <Divider />
+                  </If>
                 </div>
 
                 <div className="lrx-document-wrapper">

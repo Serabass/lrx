@@ -47,7 +47,7 @@ export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
     setIndex(0);
   }
 
-  function createElement(ref: HTMLDivElement | null) {
+  function createElement(ref: HTMLDivElement) {
     if (ref && !container) {
       let c = new svguitar.SVGuitarChord(ref);
       c.chord({
@@ -240,7 +240,9 @@ export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
     <Col md={3}>
       <div
         ref={(ref) => {
-          createElement(ref);
+          if (ref) {
+            createElement(ref);
+          }
         }}
         style={{ width: "100px" }}
       />
