@@ -76,7 +76,7 @@ export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
           /**
            * The number of frets
            */
-          frets: 10,
+          frets: 6,
           /**
            * Default position if no positon is provided (first fret is 1)
            */
