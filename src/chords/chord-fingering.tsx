@@ -66,7 +66,7 @@ export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
           /**
            * Select between 'normal' and 'handdrawn'
            */
-          style: ChordStyle.normal,
+          style: ChordStyle.handdrawn,
 
           /**
            * The number of strings
