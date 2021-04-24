@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Alert, Col, Row } from "antd";
 import LRX from "./LRX";
 import { LRXDocument } from "../common/types";
-import parser from "./parser.pegjs";
+import parser from "../parser.pegjs";
 import { hot } from "react-hot-loader";
 import { Controlled as CodeMirror } from "react-codemirror2";
 
@@ -35,6 +35,7 @@ const LRXEditor = ({ source, audioUrl }: LRXEditorProps) => {
         <CodeMirror
           ref={(c) => {
             ed = c;
+            console.log(ed);
           }}
           value={src}
           options={{
