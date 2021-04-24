@@ -1,4 +1,6 @@
-type X = "x";
+export type X = "x";
+
+export const x: X = "x";
 
 export type Fingers = [number, number | X][] | string;
 

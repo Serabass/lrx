@@ -4,9 +4,9 @@ import * as path from "path";
 import { buildChordName, extractChords } from "../extract-chords";
 
 describe("Extract Chords", function () {
-  let parser = pegjs.generate(
-    fs.readFileSync(path.join(__dirname, "../parser.pegjs")).toString("utf-8")
-  );
+  let file = path.join(__dirname, "../parser.pegjs");
+  let grammar = fs.readFileSync(file).toString("utf-8");
+  let parser = pegjs.generate(grammar);
   let source = `The song
 
 [1 Verse]

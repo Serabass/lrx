@@ -1,4 +1,5 @@
 import { Barre, Finger } from "svguitar";
+import { x } from "./chords";
 
 export interface Chord {
   fingers: Finger[];
@@ -12,7 +13,7 @@ export function parseChord(input: string): Chord {
   return {
     fingers: _fingers
       .split("")
-      .map((n, i) => [i + 1, n === "x" ? n : parseInt(n)]),
+      .map((n, i) => [i + 1, n === x ? n : parseInt(n)]),
     barres: ((input) => {
       let match = input.match(/\[([\d@,-]*)\]/);
       if (!match) {

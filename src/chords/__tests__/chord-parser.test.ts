@@ -51,4 +51,10 @@ describe("ChordParser tests", () => {
       "unknown format"
     );
   });
+
+  it("Wrong format 2", () => {
+    expect(() => parseChord("35353x [@,--,@] at 1").position).toThrow(
+      "unknown format"
+    );
+  });
 });

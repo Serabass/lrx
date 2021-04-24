@@ -1,4 +1,4 @@
-import { LRXChord, LRXChordsLine, LRXDocument } from "../common/types";
+import { LRXChord, LRXChordsLine, LRXDocument, LRXLine } from "../common/types";
 
 export function buildChordName(chord: LRXChord) {
   return `${chord.note}${chord.suffix ?? ""}${chord.mod ?? ""}`;
@@ -6,26 +6,21 @@ export function buildChordName(chord: LRXChord) {
 
 export function extractChords(doc: LRXDocument) {
   let res: string[] = [];
-  let line = doc.blocks.reduce((a, b) => {
-    return [
-      ...a,
-      b.body
-        .filter((l) => l.type === "CHORDS_LINE")
-        .map((l) =>
-          (l as LRXChordsLine).chords.map(
-            (chord) => `${chord.note}${chord.suffix ?? ""}${chord.mod ?? ""}`
-          )
+  let line = doc.blocks
+    .reduce<string[][]>((a, b) => {
+      let map = b.body
+        .filter((l: any) => l.type === "CHORDS_LINE")
+        .map((l: LRXLine) =>
+          (l as LRXChordsLine).chords.map((chord) => buildChordName(chord))
         )
-    ];
-  }, []);
+        .reduce((a, b) => [...a, ...b], []);
+      return [...a, map];
+    }, [])
+    .reduce((a, b) => [...a, ...b]);
 
-  for (let chords of line) {
-    for (let chord of chords) {
-      for (let el of chord) {
-        if (!res.includes(el)) {
-          res.push(el);
-        }
-      }
+  for (let chord of line) {
+    if (!res.includes(chord)) {
+      res.push(chord);
     }
   }
 
