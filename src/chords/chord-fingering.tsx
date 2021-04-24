@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { chords } from "./chords";
 import "./chord-fingering.sass";
-import { Col, message } from "antd";
+import { Col } from "antd";
 import * as svguitar from "svguitar";
 import { ChordStyle } from "svguitar";
 import { Chord, parseChord } from "./chord-parser";
@@ -48,7 +48,6 @@ export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
   }
 
   function createElement(ref: HTMLDivElement | null) {
-    message.info(`ChordFingering ref ${!!ref} - ${!container}`);
     if (ref && !container) {
       let c = new svguitar.SVGuitarChord(ref);
       c.chord({
