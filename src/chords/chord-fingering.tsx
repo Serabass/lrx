@@ -39,7 +39,7 @@ export function ChordFingering({ chord }: ChordFingeringProps) {
       <div>
         <ReactChord chord={chord1} instrument={instrument} lite={lite} />
       </div>
-      <div style={{ textAlign: "center", fontWeight: "bold" }}>Am2</div>
+      <div style={{ textAlign: "center", fontWeight: "bold" }}>Am</div>
     </div>
   );
 }
