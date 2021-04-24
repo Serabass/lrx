@@ -32,6 +32,7 @@ export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
 
   let entity = chordEntities[index];
   let o: Chord = entity as Chord;
+
   if (typeof entity === "string") {
     o = parseChord(entity as string);
   }

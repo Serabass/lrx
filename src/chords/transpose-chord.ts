@@ -24,10 +24,18 @@ export function transposeNote(note: string, amount: number) {
 }
 
 export function transposeChord(chord: LRXChord, amount: number): LRXChord {
+  let res = transposeNote(chord.note, amount);
+  let match = res.match(/([ABCDEFG])([#b])?/);
+
+  if (!match) {
+    throw new Error(`Unknown format: ${chord.note}`);
+  }
+
+  let [, note, mod] = match;
   return {
-    note: transposeNote(chord.note, amount),
+    note,
     space: chord.space,
-    mod: chord.mod,
+    mod,
     suffix: chord.suffix,
     bass: chord.bass
   };
