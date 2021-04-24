@@ -72,31 +72,33 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
               <Divider />
               <Typography.Title level={2}>{doc.title.title}</Typography.Title>
 
-              <div>
-                <Row>
-                  {songChords.map((chord, i) => (
-                    <Col md={3} key={i}>
-                      <ChordFingering chord={chord} transpose={transpose} />
-                    </Col>
-                  ))}
-                </Row>
-              </div>
+              <ErrorBoundary>
+                <div>
+                  <Row>
+                    {songChords.map((chord, i) => (
+                      <Col md={3} key={i}>
+                        <ChordFingering chord={chord} transpose={transpose} />
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
 
-              <div className="lrx-document-wrapper">
-                {doc.blocks.map((block, i) => (
-                  <LRXBlock
-                    maxRate={maxRate}
-                    block={block}
-                    key={i}
-                    transpose={transpose}
-                    currentTime={currentTime}
-                    activeEntry={activeEntry}
-                    onEntryClicked={(entry) => {
-                      setActiveEntry(entry);
-                    }}
-                  />
-                ))}
-              </div>
+                <div className="lrx-document-wrapper">
+                  {doc.blocks.map((block, i) => (
+                    <LRXBlock
+                      maxRate={maxRate}
+                      block={block}
+                      key={i}
+                      transpose={transpose}
+                      currentTime={currentTime}
+                      activeEntry={activeEntry}
+                      onEntryClicked={(entry) => {
+                        setActiveEntry(entry);
+                      }}
+                    />
+                  ))}
+                </div>
+              </ErrorBoundary>
               <div className="lrx-document-info">
                 <Affix>
                   <Info

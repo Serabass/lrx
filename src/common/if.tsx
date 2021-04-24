@@ -1,8 +1,6 @@
-import React from "react";
-
 export interface IfProps {
   condition: boolean | (() => boolean);
-  children: React.ReactNode;
+  children: any;
 }
 
 export function If({ condition, children }: IfProps) {
