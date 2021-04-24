@@ -7,6 +7,7 @@ import { Chord, parseChord } from "./chord-parser";
 import { createUseLocalStorage } from "../hooks/useLocalStorage";
 import { LRXChord } from "../common/types";
 import { buildChordName } from "../LRX/extract-chords";
+import { transposeChord } from "./transpose-chord";
 
 export interface ChordFingeringProps {
   chord: LRXChord;
@@ -16,22 +17,23 @@ export interface ChordFingeringProps {
 export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
   let useLocalStorage = createUseLocalStorage(`chord::${chord}::`);
   let [index, setIndex] = useLocalStorage("index", 0);
-  let chordName = buildChordName(chord);
-  let chordEntities = chords[chordName];
+  let transposed = transposeChord(chord, transpose);
+  let transposedChordName = buildChordName(transposed);
+  let chordEntities = chords[transposedChordName];
   let [container, setContainer] = useState<svguitar.SVGuitarChord | null>();
 
   if (!chordEntities) {
-    throw new Error(`Chord ${chordName} is not recognized [1]`);
+    throw new Error(`Chord ${transposedChordName} is not recognized [1]`);
   }
 
   if (chordEntities.length === 0) {
-    throw new Error(`Chord ${chordName} is not recognized [2]`);
+    throw new Error(`Chord ${transposedChordName} is not recognized [2]`);
   }
 
   let entity = chordEntities[index];
   let o: Chord = entity as Chord;
   if (typeof entity === "string") {
-    o = parseChord(entity as string) as any;
+    o = parseChord(entity as string);
   }
 
   let fingers = o.fingers;
@@ -51,7 +53,7 @@ export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
         barres: o.barres,
 
         // title of the chart (optional)
-        title: chordName
+        title: transposedChordName
       });
 
       c.configure({
