@@ -57,7 +57,7 @@ const minors: Chords = {
   Fm: ["111331 [] at 1"],
   "F#m": ["222442 [] at 1"],
   Gm: ["333553 [6-1@3] at 1"],
-  "G#m": ["222552 [6-1@5] at 3"]
+  "G#m": ["444664 [6-1@4] at 1"]
 };
 
 const sevenths: Chords = {
