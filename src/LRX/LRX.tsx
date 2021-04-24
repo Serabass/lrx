@@ -75,13 +75,13 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
 
               <div>
                 <Row>
-                  {songChords.map((chord, i) => (
+                  {/* {songChords.map((chord, i) => (
                     <ChordFingering
                       chord={chord}
                       key={i}
                       transpose={transpose}
                     />
-                  ))}
+                  ))} */}
                 </Row>
               </div>
 

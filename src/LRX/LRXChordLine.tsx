@@ -17,8 +17,8 @@ interface ChordProps {
 
 export function Chord({ chord, transpose, trigger = "click" }: ChordProps) {
   let [popoverVisible, setPopoverVisible] = useState(false);
-  let chordName = `${chord.note}${chord.mod || ""}${chord.suffix || ""}`;
   chord = transposeChord(chord, transpose);
+  let chordName = `${chord.note}${chord.mod || ""}${chord.suffix || ""}`;
 
   let events: any = {};
 
