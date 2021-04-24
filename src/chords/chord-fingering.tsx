@@ -3,35 +3,42 @@ import { chords } from "./chords";
 import "./chord-fingering.sass";
 import { Col } from "antd";
 import * as svguitar from "svguitar";
-import { parseChord } from "./chord-parser";
+import { Chord, parseChord } from "./chord-parser";
 import { createUseLocalStorage } from "../hooks/useLocalStorage";
 import { LRXChord } from "../common/types";
 import { buildChordName } from "../LRX/extract-chords";
+import { transposeChord } from "./transpose-chord";
 
 export interface ChordFingeringProps {
   chord: LRXChord;
+  transpose: number;
 }
 
-export function ChordFingering({ chord }: ChordFingeringProps) {
+export function ChordFingering({ chord, transpose }: ChordFingeringProps) {
   let useLocalStorage = createUseLocalStorage(`chord::${chord}::`);
   let [index, setIndex] = useLocalStorage("index", 0);
   let chordName = buildChordName(chord);
+  chordName = transposeChord(chordName, transpose);
   let chordEntities = chords[chordName];
   let [container, setContainer] = useState<svguitar.SVGuitarChord | null>();
 
   if (!chordEntities) {
-    throw new Error(`Chord ${chord} is not recognized`);
+    throw new Error(`Chord ${chordName} is not recognized [1]`);
   }
 
   if (chordEntities.length === 0) {
-    throw new Error(`Chord ${chord} is not recognized`);
+    throw new Error(`Chord ${chordName} is not recognized [2]`);
   }
 
-  let first = parseChord(chordEntities[index] as string);
+  let entity = chordEntities[index];
+  let o: Chord = entity as Chord;
+  if (typeof entity === "string") {
+    o = parseChord(entity as string) as any;
+  }
 
-  let fingers = first.fingers;
+  let fingers = o.fingers;
 
-  if (!first) {
+  if (!entity) {
     setIndex(0);
   }
 
@@ -43,7 +50,7 @@ export function ChordFingering({ chord }: ChordFingeringProps) {
         fingers,
 
         // optional: barres for barre chords
-        barres: first.barres,
+        barres: o.barres,
 
         // title of the chart (optional)
         title: chordName
@@ -69,7 +76,7 @@ export function ChordFingering({ chord }: ChordFingeringProps) {
         /**
          * Default position if no positon is provided (first fret is 1)
          */
-        position: first.position,
+        position: o.position,
 
         /**
          * These are the labels under the strings. Can be any string.

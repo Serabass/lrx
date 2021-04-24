@@ -6,7 +6,6 @@ import { LRXBlock } from "./LRXBlock";
 import "antd/dist/antd.css";
 import { Typography, Affix, Row, Col, Divider } from "antd";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
-import { Chord } from "./LRXChordLine";
 import { createUseLocalStorage } from "../hooks/useLocalStorage";
 import { If } from "../common/if";
 import { ChordTransposer } from "../chords/chord-transposer";
@@ -77,7 +76,11 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
               <div>
                 <Row>
                   {songChords.map((chord, i) => (
-                    <ChordFingering chord={chord} key={i} />
+                    <ChordFingering
+                      chord={chord}
+                      key={i}
+                      transpose={transpose}
+                    />
                   ))}
                 </Row>
               </div>
