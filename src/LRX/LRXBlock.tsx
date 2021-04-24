@@ -34,11 +34,11 @@ export function LRXBlock({
   });
   return (
     <div className="lrx-block">
-      <Progress percent={(block.avgRate / maxRate) * 100} />
       <Typography.Title level={4}>
         [{block.header.title}]
         {block.avgRate > 0 ? <sup>{block.avgRate}</sup> : null}
       </Typography.Title>
+      <Progress percent={(block.avgRate / maxRate) * 100} />
       <Typography.Paragraph>
         {block.body.map((line, i) => {
           return (
