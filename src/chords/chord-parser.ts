@@ -15,7 +15,7 @@ export function parseChord(input: string): Chord {
       .split("")
       .map((n, i) => [i + 1, n === x ? n : parseInt(n)]),
     barres: ((input) => {
-      let match = input.match(/\[([\d@,-]*)\]/);
+      let match = input.match(/\[([\d@,-]*)]/);
       if (!match) {
         throw new Error("unknown format");
       }
