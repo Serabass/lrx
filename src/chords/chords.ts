@@ -63,6 +63,7 @@ const minors: Chords = {
 const sevenths: Chords = {
   A7: ["02020x [] at 1"],
   "A#7": ["13131x [] at 1"],
+  B7: ["20212x [] at 1"],
   C7: ["35353x [5-1@3] at 1"],
   "C#7": ["24242x [5-1@2] at 3"],
   D7: ["2120xx [] at 1"],
@@ -76,11 +77,13 @@ const sevenths: Chords = {
 };
 
 const sixths: Chords = {
-  Dm6: ["0320xx [] at 1"]
+  Dm6: ["0320xx [] at 1"],
+  "D#m6": ["2131xx [] at 1"]
 };
 
 const augs: Chords = {
-  Faug: ["x6678x [] at 1"]
+  Faug: ["x6678x [] at 1"],
+  "F#aug": ["x7789x [] at 1"]
 };
 
 export const chords: Chords = {

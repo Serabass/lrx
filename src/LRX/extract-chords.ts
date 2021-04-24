@@ -1,7 +1,7 @@
 import { LRXChord, LRXChordsLine, LRXDocument, LRXLine } from "../common/types";
 
 export function buildChordName(chord: LRXChord) {
-  return `${chord.note}${chord.suffix ?? ""}${chord.mod ?? ""}`;
+  return `${chord.note}${chord.mod ?? ""}${chord.suffix ?? ""}`;
 }
 
 export function extractChords(doc: LRXDocument) {
