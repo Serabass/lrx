@@ -9,11 +9,14 @@ export interface Chord {
 
 export function parseChord(input: string): Chord {
   let [_fingers, _barres, , _position] = input.split(/\s+/);
-
+  let position = parseInt(_position);
   return {
     fingers: _fingers
       .split("")
-      .map((n, i) => [i + 1, n === x ? n : parseInt(n)]),
+      .map((n, i) => [
+        i + 1,
+        n === x ? n : parseInt(n) + (position === 1 ? 0 : position)
+      ]),
     barres: ((input) => {
       let match = input.match(/\[([\d@,-]*)]/);
       if (!match) {
@@ -34,6 +37,6 @@ export function parseChord(input: string): Chord {
         return { fromString, toString, fret };
       });
     })(_barres),
-    position: parseInt(_position)
+    position
   };
 }
