@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { hot } from "react-hot-loader";
 import "./lrx.sass";
-import {
-  LRXChordsLine,
-  LRXDocument,
-  LRXGeneralLineEntry
-} from "../common/types";
+import { LRXDocument, LRXGeneralLineEntry } from "../common/types";
 import { LRXBlock } from "./LRXBlock";
 import "antd/dist/antd.css";
 import { Typography, Affix, Row, Col, Divider } from "antd";
@@ -15,6 +11,7 @@ import { createUseLocalStorage } from "../hooks/useLocalStorage";
 import { If } from "../common/if";
 import { ChordTransposer } from "../chords/chord-transposer";
 import { Info } from "../info";
+import { extractChords } from "./extract-chords";
 
 export interface LRXProps {
   doc: LRXDocument;
@@ -23,44 +20,12 @@ export interface LRXProps {
 
 let useLocalStorage = createUseLocalStorage("lrx");
 
-function extractChords(doc: LRXDocument) {
-  let res: string[] = [];
-  debugger;
-  let line = doc.blocks.reduce<string[][]>((a, b) => {
-    return [
-      ...a,
-      b.body
-        .filter((l) => l.type === "CHORDS_LINE")
-        .map((l) =>
-          ((l as unknown) as LRXChordsLine).chords.map((chord) => {
-            return chord.note + (chord.suffix ?? "") + (chord.mod ?? "");
-          })
-        )
-    ];
-  }, []);
-
-  debugger;
-  for (let chords of line) {
-    for (let chord of chords) {
-      for (let el of chord) {
-        if (!res.includes(el)) {
-          res.push(el);
-        }
-      }
-    }
-  }
-
-  return res;
-}
-
 const LRX = ({ doc, audioUrl }: LRXProps) => {
-  debugger;
   let [transpose, setTranspose] = useLocalStorage<number>("transpose", 0);
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
   let [currentTime, setCurrentTime] = useState<number>(0);
   let maxRate = Math.max(...doc.blocks.map((b) => b.avgRate));
   let songChords = extractChords(doc);
-  debugger;
 
   let activeReportLines = doc.report.lines.filter(
     (line) => line.n === activeEntry?.bm.n

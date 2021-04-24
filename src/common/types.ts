@@ -31,9 +31,11 @@ export interface Timecode {
   start: Time;
   end: Time;
 }
-
-export interface LRXGeneralLine {
+export interface LRXLine {
   type: string;
+}
+
+export interface LRXGeneralLine extends LRXLine {
   avgRate: number;
   content: LRXGeneralLineEntry[];
   timecode?: Timecode;
@@ -44,10 +46,10 @@ export interface LRXDocumentBlock {
   header: {
     title: string;
   };
-  body: LRXGeneralLine[];
+  body: LRXLine[];
 }
 
-export interface LRXReportLine {
+export interface LRXReportLine extends LRXLine {
   type: "REPORT_LINE";
   n: string;
   text: string;
@@ -75,12 +77,12 @@ export interface LRXChordBass {
 export interface LRXChord {
   space: LRXChordSpace;
   note: string;
-  mod: string;
-  bass: LRXChordBass;
-  suffix: string;
+  mod?: string;
+  bass?: LRXChordBass;
+  suffix?: string;
 }
 
-export interface LRXChordsLine {
+export interface LRXChordsLine extends LRXLine {
   type: "CHORDS_LINE";
   chords: LRXChord[];
 }
