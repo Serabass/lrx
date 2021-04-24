@@ -11,7 +11,7 @@ import { If } from "../common/if";
 import { ChordTransposer } from "../chords/chord-transposer";
 import { Info } from "../info";
 import { extractChords } from "./extract-chords";
-import { ChordFingering } from "../chords/chord-fingering";
+import ChordFingering from "../chords/chord-fingering";
 
 export interface LRXProps {
   doc: LRXDocument;
@@ -76,11 +76,9 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
               <div>
                 <Row>
                   {songChords.map((chord, i) => (
-                    <ChordFingering
-                      chord={chord}
-                      key={i}
-                      transpose={transpose}
-                    />
+                    <Col md={3} key={i}>
+                      <ChordFingering chord={chord} transpose={transpose} />
+                    </Col>
                   ))}
                 </Row>
               </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Popover } from "antd";
 import { LRXChord, LRXChordsLine } from "../common/types";
 import { transposeChord } from "../chords/transpose-chord";
-import { ChordFingering } from "../chords/chord-fingering";
+import ChordFingering from "../chords/chord-fingering";
 
 export interface LRXChordLineProps {
   line: LRXChordsLine;
