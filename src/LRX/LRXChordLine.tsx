@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Popover } from "antd";
 import { LRXChord, LRXChordsLine } from "../common/types";
 import { transposeChord } from "../chords/transpose-chord";
-import ChordFingering from "../chords/chord-fingering";
+import { ChordFingering2 } from "../chords/cf";
 
 export interface LRXChordLineProps {
   line: LRXChordsLine;
@@ -42,7 +42,7 @@ export function Chord({ chord, transpose, trigger = "click" }: ChordProps) {
   return (
     <span>
       {chord.space.start}
-      <Popover content={<ChordFingering chord={chord} />} placement="bottom">
+      <Popover content={<ChordFingering2 chord={chord} />} placement="bottom">
         <span className="chord-entry" {...events}>
           {chordName}
         </span>
