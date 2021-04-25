@@ -5,6 +5,7 @@ import { ChordFingering2 } from "../chords/cf";
 import { hot } from "react-hot-loader";
 import { LRXChord } from "../common/types";
 import { createUseLocalStorage } from "../hooks/useLocalStorage";
+import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 
 export interface ChordListProps {
   list: LRXChord[];
@@ -15,7 +16,7 @@ let useLocalStorage = createUseLocalStorage("chordList");
 function ChordList({ list }: ChordListProps) {
   let [showChords, setShowChords] = useLocalStorage<boolean>(
     "showChords",
-    true
+    false
   );
   return (
     <Row>
@@ -23,7 +24,7 @@ function ChordList({ list }: ChordListProps) {
         <Row>
           <Col md={24}>
             <Button onClick={() => setShowChords(!showChords)} type="dashed">
-              {showChords ? "Скрыть аккорды" : "Показать аккорды"}
+              Аккорды {showChords ? <CaretUpOutlined /> : <CaretDownOutlined />}
             </Button>
           </Col>
         </Row>
