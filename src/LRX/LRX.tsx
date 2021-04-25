@@ -12,7 +12,6 @@ import { ChordTransposer } from "../chords/chord-transposer";
 import { Info } from "../info";
 import { extractChords } from "./extract-chords";
 // import ChordFingering from "../chords/chord-fingering";
-import { ChordFingering2 } from "../chords/cf";
 import { LRXContext } from "./LRXContext";
 import ChordList from "./ChordList";
 
