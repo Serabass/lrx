@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Col, Row } from "antd";
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
 import { ButtonType } from "antd/lib/button/button";
+import { LRXContext } from "../LRX/LRXContext";
 
 export interface ChordTransposerProps {
   value: number;
@@ -12,15 +13,15 @@ export interface ChordTransposerProps {
 }
 
 export function ChordTransposer({
-  value,
   min,
   max,
   onValueChanged,
   buttonsType = "default"
 }: ChordTransposerProps) {
-  let stringValue = value.toString();
+  let ctx = useContext(LRXContext);
+  let stringValue = ctx.transpose.toString();
 
-  if (value > 0) {
+  if (ctx.transpose > 0) {
     stringValue = `+${stringValue}`;
   }
 
@@ -30,9 +31,9 @@ export function ChordTransposer({
         <Button
           type={buttonsType}
           icon={<ArrowDownOutlined />}
-          disabled={value <= min}
+          disabled={ctx.transpose <= min}
           onClick={() => {
-            onValueChanged(value - 1);
+            onValueChanged(ctx.transpose - 1);
           }}
         />
       </Col>
@@ -46,9 +47,9 @@ export function ChordTransposer({
         <Button
           type={buttonsType}
           icon={<ArrowUpOutlined />}
-          disabled={value >= max}
+          disabled={ctx.transpose >= max}
           onClick={() => {
-            onValueChanged(value + 1);
+            onValueChanged(ctx.transpose + 1);
           }}
         />
       </Col>

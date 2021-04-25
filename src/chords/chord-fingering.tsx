@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { chords } from "./chords";
 import "./chord-fingering.sass";
 import { Col } from "antd";
-import { createUseLocalStorage } from "../hooks/useLocalStorage";
 import { LRXChord } from "../common/types";
 import { buildChordName } from "../LRX/extract-chords";
 import { transposeChord } from "./transpose-chord";
@@ -17,10 +16,7 @@ export interface ChordFingeringProps {
 export function ChordFingering({ chord, transpose = 0 }: ChordFingeringProps) {
   let transposed = transposeChord(chord, transpose);
   let transposedChordName = buildChordName(transposed);
-  let useLocalStorage = createUseLocalStorage(
-    `chord::${transposedChordName}::`
-  );
-  let [index, setIndex] = useLocalStorage("index", 0);
+  let [index, setIndex] = useState(0);
   let chordEntities = chords[transposedChordName];
 
   if (!chordEntities) {

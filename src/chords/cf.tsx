@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { chords } from "./chords";
 import "./chord-fingering.sass";
 import { Alert, Col } from "antd";
@@ -19,7 +19,7 @@ export interface ChordFingeringProps {
 
 export function ChordFingering2({ chord }: ChordFingeringProps) {
   let ctx = useContext(LRXContext);
-  let ref = useRef<HTMLDivElement>();
+  let ref = React.createRef<HTMLDivElement>();
   let transposed = transposeChord(chord, ctx.transpose);
   let transposedChordName = buildChordName(transposed);
   let useLocalStorage = createUseLocalStorage(
@@ -27,7 +27,6 @@ export function ChordFingering2({ chord }: ChordFingeringProps) {
   );
   let [index, setIndex] = useLocalStorage("index", 0);
   let chordEntities = chords[transposedChordName];
-  let [container, setContainer] = useState<svguitar.SVGuitarChord | null>();
 
   if (!chordEntities) {
     return (
@@ -64,10 +63,11 @@ export function ChordFingering2({ chord }: ChordFingeringProps) {
     if (ref.current) {
       createElement(ref.current);
     }
-  }, [ref.current, ctx.transpose]);
+  }, [ctx.transpose]);
 
   function createElement(ref: HTMLDivElement) {
-    if (ref && !container) {
+    if (ref) {
+      ref.innerHTML = "";
       let c = new svguitar.SVGuitarChord(ref);
       c.chord({
         // array of [string, fret, text | options]
@@ -251,7 +251,6 @@ export function ChordFingering2({ chord }: ChordFingeringProps) {
           fixedDiagramPosition: false
         })
         .draw();
-      setContainer(c);
     }
   }
 

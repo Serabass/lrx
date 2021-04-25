@@ -7,12 +7,10 @@ import { LRXDocument } from "./common/types";
 import { createUseLocalStorage } from "./hooks/useLocalStorage";
 import { If } from "./common/if";
 import LRXEditor from "./LRX/LRXEditor";
-import Sandbox from "./Sandbox";
 
 const { TabPane } = Tabs;
 const els: any[] = [];
 let root = document.getElementById("root");
-let rough = document.getElementById("rough");
 
 let useLocalStorage = createUseLocalStorage("lrx:app");
 

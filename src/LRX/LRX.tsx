@@ -24,7 +24,7 @@ let useLocalStorage = createUseLocalStorage("lrx");
 
 const LRX = ({ doc, audioUrl }: LRXProps) => {
   let [transpose, setTranspose] = useLocalStorage<number>("transpose", 0);
-  let [fingerings, setFingerings] = useLocalStorage("fingerings", ["chords"]);
+  let [fingerings, setFingerings] = useLocalStorage("fingerings", []);
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
   let [currentTime, setCurrentTime] = useState<number>(0);
   let maxRate = Math.max(...doc.blocks.map((b) => b.avgRate));
@@ -64,7 +64,6 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
               <pre className="lrx-document">
                 <div className="lrx-toolbox">
                   <ChordTransposer
-                    value={transpose}
                     min={-6}
                     max={6}
                     buttonsType="dashed"

@@ -7,5 +7,7 @@ export interface LRXContextType {
 
 export const LRXContext = React.createContext<LRXContextType>({
   transpose: 0,
-  setTranspose() {}
+  setTranspose(value) {
+    this.transpose = value;
+  }
 });
