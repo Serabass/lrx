@@ -46,7 +46,7 @@ const Majors: Chords = {
 };
 
 const minors: Chords = {
-  Am: ["01220x [] at 1"],
+  Am: ["01220x [] at 1", "555775 [] at 1"],
   "A#m": ["12331x [] at 1"],
   Bm: ["23442x [5-1@2] at 1"],
   Cm: ["345533 [] at 1"],

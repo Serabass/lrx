@@ -35,7 +35,11 @@ export function useStateWithLocalStorage<T>(
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(v));
+    if (v !== initialState) {
+      localStorage.setItem(key, JSON.stringify(v));
+    } else {
+      localStorage.removeItem(key);
+    }
   }, [v]);
 
   return [v, setV];

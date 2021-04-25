@@ -30,7 +30,7 @@ function ChordList({ list }: ChordListProps) {
         <If condition={showChords}>
           <Row style={{ padding: 20 }}>
             {list.map((chord, i) => (
-              <Col md={3} key={i}>
+              <Col md={6} key={i} offset={1}>
                 <ChordFingering2 chord={chord} />
               </Col>
             ))}

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { chords } from "./chords";
-import { Alert, Col } from "antd";
+import { Alert, Button, Col, Row } from "antd";
 import * as svguitar from "svguitar";
 import { ChordStyle } from "svguitar";
 import { Chord, parseChord } from "./chord-parser";
@@ -9,6 +9,8 @@ import { buildChordName } from "../LRX/extract-chords";
 import { transposeChord } from "./transpose-chord";
 import { hot } from "react-hot-loader";
 import { LRXContext } from "../LRX/LRXContext";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { createUseLocalStorage } from "../hooks/useLocalStorage";
 
 export interface ChordFingeringProps {
   chord: LRXChord;
@@ -19,7 +21,8 @@ export function ChordFingering2({ chord }: ChordFingeringProps) {
   let ref = React.createRef<HTMLDivElement>();
   let transposed = transposeChord(chord, ctx.transpose);
   let transposedChordName = buildChordName(transposed);
-  let [index, setIndex] = useState(0);
+  let useLocalStorage = createUseLocalStorage(`chord::${transposedChordName}`);
+  let [index, setIndex] = useLocalStorage("index", 0);
   let chordEntities = chords[transposedChordName];
 
   if (!chordEntities) {
@@ -43,6 +46,11 @@ export function ChordFingering2({ chord }: ChordFingeringProps) {
   let entity = chordEntities[index];
   let o: Chord = entity as Chord;
 
+  if (!entity) {
+    setIndex(0);
+    return <div />;
+  }
+
   if (typeof entity === "string") {
     o = parseChord(entity as string);
   }
@@ -57,7 +65,7 @@ export function ChordFingering2({ chord }: ChordFingeringProps) {
     if (ref.current) {
       createElement(ref.current);
     }
-  }, [ctx.transpose]);
+  }, [ctx.transpose, index]);
 
   function createElement(ref: HTMLDivElement) {
     if (ref) {
@@ -249,8 +257,37 @@ export function ChordFingering2({ chord }: ChordFingeringProps) {
   }
 
   return (
-    <Col md={3}>
-      <div ref={ref} style={{ width: "100px" }} />
+    <Col md={24}>
+      <Row>
+        <Col>
+          <div ref={ref} style={{ width: "180px" }} />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6} style={{ textAlign: "left" }}>
+          <Button
+            icon={<LeftOutlined />}
+            size="small"
+            disabled={index <= 0}
+            onClick={() => {
+              setIndex(--index);
+            }}
+          />
+        </Col>
+        <Col md={12} style={{ textAlign: "center" }}>
+          {index + 1} of {chordEntities.length}
+        </Col>
+        <Col md={6} style={{ textAlign: "right" }}>
+          <Button
+            icon={<RightOutlined />}
+            size="small"
+            disabled={index >= chordEntities.length - 1}
+            onClick={() => {
+              setIndex(++index);
+            }}
+          />
+        </Col>
+      </Row>
     </Col>
   );
 }

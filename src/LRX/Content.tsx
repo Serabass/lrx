@@ -1,4 +1,4 @@
-import { Col, Divider, Row, Select, Tabs } from "antd";
+import { Col, Divider, Row, Select } from "antd";
 import { LRXDocument } from "../common/types";
 import parser from "../parser.pegjs";
 import { If } from "../common/if";
