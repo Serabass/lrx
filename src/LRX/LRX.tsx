@@ -4,7 +4,7 @@ import "./lrx.sass";
 import { LRXDocument, LRXGeneralLineEntry } from "../common/types";
 import { LRXBlock } from "./LRXBlock";
 import "antd/dist/antd.css";
-import { Typography, Affix, Row, Col, Divider, Collapse } from "antd";
+import { Typography, Affix, Row, Col, Divider } from "antd";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import { createUseLocalStorage } from "../hooks/useLocalStorage";
 import { If } from "../common/if";
@@ -14,6 +14,7 @@ import { extractChords } from "./extract-chords";
 // import ChordFingering from "../chords/chord-fingering";
 import { ChordFingering2 } from "../chords/cf";
 import { LRXContext } from "./LRXContext";
+import ChordList from "./ChordList";
 
 export interface LRXProps {
   doc: LRXDocument;
@@ -24,7 +25,6 @@ let useLocalStorage = createUseLocalStorage("lrx");
 
 const LRX = ({ doc, audioUrl }: LRXProps) => {
   let [transpose, setTranspose] = useLocalStorage<number>("transpose", 0);
-  let [fingerings, setFingerings] = useLocalStorage<string[]>("fingerings", []);
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
   let [currentTime, setCurrentTime] = useState<number>(0);
   let maxRate = Math.max(...doc.blocks.map((b) => b.avgRate));
@@ -71,25 +71,7 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
 
                 <ErrorBoundary>
                   <div>
-                    <Collapse
-                      defaultActiveKey={fingerings}
-                      onChange={(e) => {
-                        setFingerings(e as string[]);
-                      }}
-                    >
-                      <Collapse.Panel header="Аккорды" key="chords">
-                        <Row style={{ padding: 20 }}>
-                          {songChords.map((chord, i) => (
-                            <Col md={3} key={i}>
-                              <ChordFingering2
-                                chord={chord}
-                                transpose={transpose}
-                              />
-                            </Col>
-                          ))}
-                        </Row>
-                      </Collapse.Panel>
-                    </Collapse>
+                    <ChordList list={songChords} />
                   </div>
 
                   <div className="lrx-document-wrapper">

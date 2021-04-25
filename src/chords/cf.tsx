@@ -14,7 +14,6 @@ import { LRXContext } from "../LRX/LRXContext";
 
 export interface ChordFingeringProps {
   chord: LRXChord;
-  transpose?: number;
 }
 
 export function ChordFingering2({ chord }: ChordFingeringProps) {
