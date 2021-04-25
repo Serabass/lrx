@@ -63,14 +63,7 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
             <ErrorBoundary>
               <pre className="lrx-document">
                 <div className="lrx-toolbox">
-                  <ChordTransposer
-                    min={-6}
-                    max={6}
-                    buttonsType="dashed"
-                    onValueChanged={(value) => {
-                      setTranspose(value);
-                    }}
-                  />
+                  <ChordTransposer min={-6} max={6} buttonsType="dashed" />
                 </div>
                 <Divider />
 

@@ -7,14 +7,12 @@ import { LRXContext } from "../LRX/LRXContext";
 export interface ChordTransposerProps {
   min: number;
   max: number;
-  onValueChanged: (value: number) => void;
   buttonsType?: ButtonType;
 }
 
 export function ChordTransposer({
   min,
   max,
-  onValueChanged,
   buttonsType = "default"
 }: ChordTransposerProps) {
   let ctx = useContext(LRXContext);
@@ -32,7 +30,7 @@ export function ChordTransposer({
           icon={<ArrowDownOutlined />}
           disabled={ctx.transpose <= min}
           onClick={() => {
-            onValueChanged(ctx.transpose - 1);
+            ctx.setTranspose(ctx.transpose - 1);
           }}
         />
       </Col>
@@ -48,7 +46,7 @@ export function ChordTransposer({
           icon={<ArrowUpOutlined />}
           disabled={ctx.transpose >= max}
           onClick={() => {
-            onValueChanged(ctx.transpose + 1);
+            ctx.setTranspose(ctx.transpose + 1);
           }}
         />
       </Col>
