@@ -14,4 +14,9 @@ script:
 cache: npm
 
 after_success:
+  - ping $FTP_SERVER
   - curl -T "{$(echo dist/*.* | tr ' ' ',')}" ftp://$FTP_SERVER --user $FTP_USER:$FTP_PASS
+
+branches:
+  only:
+    - master
