@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   LRXLine,
   LRXGeneralLineEntry,
@@ -8,7 +8,6 @@ import {
 } from "../common/types";
 import { LRXChordLine } from "./LRXChordLine";
 import { LRXLyricsLine } from "./LRXLyricsLine";
-import { LRXContext } from "./LRXContext";
 
 export interface LRXLineProps {
   line: LRXLine;
