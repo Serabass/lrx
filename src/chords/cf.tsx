@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { chords } from "./chords";
-import "./chord-fingering.sass";
 import { Alert, Col } from "antd";
 import * as svguitar from "svguitar";
 import { ChordStyle } from "svguitar";
 import { Chord, parseChord } from "./chord-parser";
-import { createUseLocalStorage } from "../hooks/useLocalStorage";
 import { LRXChord } from "../common/types";
 import { buildChordName } from "../LRX/extract-chords";
 import { transposeChord } from "./transpose-chord";

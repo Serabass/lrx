@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { chords } from "./chords";
-import "./chord-fingering.sass";
 import { Col } from "antd";
 import { LRXChord } from "../common/types";
 import { buildChordName } from "../LRX/extract-chords";

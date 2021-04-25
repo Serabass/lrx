@@ -4,13 +4,19 @@ import { If } from "../common/if";
 import { ChordFingering2 } from "../chords/cf";
 import { hot } from "react-hot-loader";
 import { LRXChord } from "../common/types";
+import { createUseLocalStorage } from "../hooks/useLocalStorage";
 
 export interface ChordListProps {
   list: LRXChord[];
 }
 
+let useLocalStorage = createUseLocalStorage("chordList");
+
 function ChordList({ list }: ChordListProps) {
-  let [showChords, setShowChords] = useState<boolean>(true);
+  let [showChords, setShowChords] = useLocalStorage<boolean>(
+    "showChords",
+    true
+  );
   return (
     <Row>
       <Col md={24}>
