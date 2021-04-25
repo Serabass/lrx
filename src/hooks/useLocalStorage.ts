@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type StateWithLocalStorage<T> = [T, (val: T) => void];
 type UseStateWithLocalStorage = <TT>(
@@ -27,21 +27,16 @@ export function useStateWithLocalStorage<T>(
   key: string,
   initialState: T
 ): StateWithLocalStorage<T> {
-  let item = localStorage.getItem(key);
-  let value;
-  if (!item) {
-    value = typeof initialState === "function" ? initialState() : initialState;
-  } else {
-    value = JSON.parse(item);
-  }
+  let [v, setV] = useState<T>(initialState);
 
-  let [v, setV] = useState<T>(value);
+  useEffect(() => {
+    const raw = localStorage.getItem(key) || JSON.stringify(initialState);
+    setV(JSON.parse(raw));
+  }, []);
 
-  return [
-    v,
-    (val: T) => {
-      localStorage.setItem(key, JSON.stringify(val));
-      setV(val);
-    }
-  ];
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(v));
+  }, [v]);
+
+  return [v, setV];
 }
