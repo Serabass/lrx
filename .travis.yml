@@ -12,3 +12,6 @@ script:
   - npm run build
 
 cache: npm
+
+after_success:
+  - curl -T "{$(echo dist/*.* | tr ' ' ',')}" $FTP_SERVER --user $FTP_USER:$FTP_PASS
