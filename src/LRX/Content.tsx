@@ -7,7 +7,6 @@ import LRX from "./LRX";
 import React from "react";
 import { hot } from "react-hot-loader";
 import { createUseLocalStorage } from "../hooks/useLocalStorage";
-import { act } from "react-dom/test-utils";
 
 let useLocalStorage = createUseLocalStorage("lrx:app");
 
