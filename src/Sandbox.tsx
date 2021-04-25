@@ -1,6 +1,5 @@
 import React from "react";
 import { Col, Row } from "antd";
-import { ChordFingering } from "./chords/chord-fingering";
 import { chord } from "./chords/chord";
 import { ChordFingering2 } from "./chords/cf";
 import { hot } from "react-hot-loader";
@@ -17,9 +16,6 @@ const Sandbox = function () {
           </Col>
         </Row>
         <Row>
-          <Col offset={2} md={6}>
-            <ChordFingering chord={chrd} />
-          </Col>
           <Col offset={2} md={6}>
             <ChordFingering2 chord={chrd} />
           </Col>
