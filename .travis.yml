@@ -15,8 +15,8 @@ cache: npm
 
 after_success:
   # - ping $FTP_SERVER
-  - find dist/* -type f | xargs -L 1 bash -c 'curl -v --ftp-create-dirs -T  $1 -u $FTP_USER:$FTP_PASS ftp://$FTP_SERVER/${1##*/}' \;
-  - find *.mp3 -type f | xargs -L 1 bash -c 'curl -v --ftp-create-dirs -T  $1 -u $FTP_USER:$FTP_PASS ftp://$FTP_SERVER/${1##*/}' \;
+  # - find dist/* -type f | xargs -L 1 bash -c 'curl -v --ftp-create-dirs -T  $1 -u $FTP_USER:$FTP_PASS ftp://$FTP_SERVER/${1##*/}' \;
+  # - find *.mp3 -type f | xargs -L 1 bash -c 'curl -v --ftp-create-dirs -T  $1 -u $FTP_USER:$FTP_PASS ftp://$FTP_SERVER/${1##*/}' \;
 
 branches:
   only:
