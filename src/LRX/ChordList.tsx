@@ -16,7 +16,7 @@ function ChordList({ list }: ChordListProps) {
       <Col md={24}>
         <Row>
           <Col md={24}>
-            <Button onClick={() => setShowChords(!showChords)}>
+            <Button onClick={() => setShowChords(!showChords)} type="dashed">
               {showChords ? "Скрыть аккорды" : "Показать аккорды"}
             </Button>
           </Col>

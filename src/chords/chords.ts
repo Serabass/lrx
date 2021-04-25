@@ -85,7 +85,7 @@ const sixths: Chords = {
 
 const augs: Chords = {
   Eaug: ["xx2110 [] at 1"],
-  Faug: ["x6678x [] at 1"],
+  Faug: ["x2234x [] at 2"],
   "F#aug": ["x7789x [] at 1"],
   Gaug: ["xx0123 [] at 1"]
 };
