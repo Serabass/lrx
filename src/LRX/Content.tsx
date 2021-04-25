@@ -1,4 +1,4 @@
-import { Tabs } from "antd";
+import { Col, Divider, Row, Select, Tabs } from "antd";
 import { LRXDocument } from "../common/types";
 import parser from "../parser.pegjs";
 import { If } from "../common/if";
@@ -7,6 +7,7 @@ import LRX from "./LRX";
 import React from "react";
 import { hot } from "react-hot-loader";
 import { createUseLocalStorage } from "../hooks/useLocalStorage";
+import { act } from "react-dom/test-utils";
 
 let useLocalStorage = createUseLocalStorage("lrx:app");
 
@@ -15,34 +16,51 @@ interface ContentProps {
 }
 
 function Content({ els }: ContentProps) {
-  let [activeTab, setActiveTab] = useLocalStorage("activeTab", "0");
+  let [activeTab, setActiveTab] = useLocalStorage("activeTab", 0);
+  let el = els[activeTab];
+  let mp3 = el.dataset.mp3;
+  let contents = el.innerHTML;
+  let source = contents.replace(/^\s+/, "");
+  let lrxDoc: LRXDocument = parser.parse(source);
+  let editable = el.dataset.editable === "true";
 
   return (
-    <Tabs
-      activeKey={activeTab}
-      onChange={(key) => {
-        setActiveTab(key);
-      }}
-    >
-      {els.map((el, i) => {
-        let contents = el.innerHTML;
-        let mp3 = el.dataset.mp3;
-        let editable = el.dataset.editable === "true";
-        let source = contents.replace(/^\s+/, "");
-        let lrxDoc: LRXDocument = parser.parse(source);
-        return (
-          <Tabs.TabPane tab={lrxDoc.title.title} key={i}>
+    <Row>
+      <Col md={24}>
+        <Row>
+          <Col md={24}>
+            <Select
+              value={activeTab}
+              onChange={(value) => {
+                setActiveTab(value);
+              }}
+            >
+              {els.map((el, i) => {
+                let contents = el.innerHTML;
+                let source = contents.replace(/^\s+/, "");
+                let lrxDoc: LRXDocument = parser.parse(source);
+                return (
+                  <Select.Option value={i} key={i}>
+                    {lrxDoc.title.title}
+                  </Select.Option>
+                );
+              })}
+            </Select>
+            <Divider />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={24}>
             <If condition={editable}>
               <LRXEditor source={source} audioUrl={mp3 ?? ""} />
             </If>
             <If condition={!editable}>
               <LRX doc={lrxDoc} audioUrl={mp3} />
             </If>
-          </Tabs.TabPane>
-        );
-      })}
-      Content of Tab Pane 1
-    </Tabs>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
   );
 }
 
