@@ -13,6 +13,7 @@ import { Info } from "../info";
 import { extractChords } from "./extract-chords";
 // import ChordFingering from "../chords/chord-fingering";
 import { ChordFingering2 } from "../chords/cf";
+import { LRXContext } from "./LRXContext";
 
 export interface LRXProps {
   doc: LRXDocument;
@@ -34,99 +35,101 @@ const LRX = ({ doc, audioUrl }: LRXProps) => {
   );
 
   return (
-    <div className="wrapper">
-      <Row>
-        <Col md={24}>
-          <If condition={!!audioUrl}>
-            <audio
-              src={audioUrl}
-              controls
-              style={{
-                width: "100%",
-                position: "fixed",
-                bottom: 0,
-                left: 0,
-                zIndex: 9999
-              }}
-              onTimeUpdate={(e) => {
-                setCurrentTime(e.currentTarget.currentTime);
-              }}
-            />
-          </If>
-        </Col>
-      </Row>
+    <LRXContext.Provider value={{ transpose, setTranspose }}>
+      <div className="wrapper">
+        <Row>
+          <Col md={24}>
+            <If condition={!!audioUrl}>
+              <audio
+                src={audioUrl}
+                controls
+                style={{
+                  width: "100%",
+                  position: "fixed",
+                  bottom: 0,
+                  left: 0,
+                  zIndex: 9999
+                }}
+                onTimeUpdate={(e) => {
+                  setCurrentTime(e.currentTarget.currentTime);
+                }}
+              />
+            </If>
+          </Col>
+        </Row>
 
-      <Row>
-        <Col md={24}>
-          <ErrorBoundary>
-            <pre className="lrx-document">
-              <div className="lrx-toolbox">
-                <ChordTransposer
-                  value={transpose}
-                  min={-6}
-                  max={6}
-                  buttonsType="dashed"
-                  onValueChanged={(value) => {
-                    setTranspose(value);
-                  }}
-                />
-              </div>
-              <Divider />
-
-              <Typography.Title level={2}>{doc.title.title}</Typography.Title>
-
-              <ErrorBoundary>
-                <div>
-                  <Collapse
-                    defaultActiveKey={fingerings}
-                    onChange={(e) => {
-                      setFingerings(e as string[]);
+        <Row>
+          <Col md={24}>
+            <ErrorBoundary>
+              <pre className="lrx-document">
+                <div className="lrx-toolbox">
+                  <ChordTransposer
+                    value={transpose}
+                    min={-6}
+                    max={6}
+                    buttonsType="dashed"
+                    onValueChanged={(value) => {
+                      setTranspose(value);
                     }}
-                  >
-                    <Collapse.Panel header="Аккорды" key="chords">
-                      <Row style={{ padding: 20 }}>
-                        {songChords.map((chord, i) => (
-                          <Col md={3} key={i}>
-                            <ChordFingering2
-                              chord={chord}
-                              transpose={transpose}
-                            />
-                          </Col>
-                        ))}
-                      </Row>
-                    </Collapse.Panel>
-                  </Collapse>
-                </div>
-
-                <div className="lrx-document-wrapper">
-                  {doc.blocks.map((block, i) => (
-                    <LRXBlock
-                      maxRate={maxRate}
-                      block={block}
-                      key={i}
-                      transpose={transpose}
-                      currentTime={currentTime}
-                      activeEntry={activeEntry}
-                      onEntryClicked={(entry) => {
-                        setActiveEntry(entry);
-                      }}
-                    />
-                  ))}
-                </div>
-              </ErrorBoundary>
-              <div className="lrx-document-info">
-                <Affix>
-                  <Info
-                    activeEntry={activeEntry}
-                    activeReportLines={activeReportLines}
                   />
-                </Affix>
-              </div>
-            </pre>
-          </ErrorBoundary>
-        </Col>
-      </Row>
-    </div>
+                </div>
+                <Divider />
+
+                <Typography.Title level={2}>{doc.title.title}</Typography.Title>
+
+                <ErrorBoundary>
+                  <div>
+                    <Collapse
+                      defaultActiveKey={fingerings}
+                      onChange={(e) => {
+                        setFingerings(e as string[]);
+                      }}
+                    >
+                      <Collapse.Panel header="Аккорды" key="chords">
+                        <Row style={{ padding: 20 }}>
+                          {songChords.map((chord, i) => (
+                            <Col md={3} key={i}>
+                              <ChordFingering2
+                                chord={chord}
+                                transpose={transpose}
+                              />
+                            </Col>
+                          ))}
+                        </Row>
+                      </Collapse.Panel>
+                    </Collapse>
+                  </div>
+
+                  <div className="lrx-document-wrapper">
+                    {doc.blocks.map((block, i) => (
+                      <LRXBlock
+                        maxRate={maxRate}
+                        block={block}
+                        key={i}
+                        transpose={transpose}
+                        currentTime={currentTime}
+                        activeEntry={activeEntry}
+                        onEntryClicked={(entry) => {
+                          setActiveEntry(entry);
+                        }}
+                      />
+                    ))}
+                  </div>
+                </ErrorBoundary>
+                <div className="lrx-document-info">
+                  <Affix>
+                    <Info
+                      activeEntry={activeEntry}
+                      activeReportLines={activeReportLines}
+                    />
+                  </Affix>
+                </div>
+              </pre>
+            </ErrorBoundary>
+          </Col>
+        </Row>
+      </div>
+    </LRXContext.Provider>
   );
 };
 

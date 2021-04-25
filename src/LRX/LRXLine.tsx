@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   LRXLine,
   LRXGeneralLineEntry,
@@ -8,6 +8,7 @@ import {
 } from "../common/types";
 import { LRXChordLine } from "./LRXChordLine";
 import { LRXLyricsLine } from "./LRXLyricsLine";
+import { LRXContext } from "./LRXContext";
 
 export interface LRXLineProps {
   line: LRXLine;
@@ -15,7 +16,6 @@ export interface LRXLineProps {
   activeEntry?: LRXGeneralLineEntry;
   timeHighlight?: boolean;
   currentTime?: number;
-  transpose?: number;
 }
 
 export function LRXLine({
@@ -23,7 +23,6 @@ export function LRXLine({
   onEntryClicked = () => {},
   activeEntry,
   timeHighlight = false,
-  transpose = 0,
   currentTime = 0
 }: LRXLineProps) {
   switch (line.type) {
@@ -31,9 +30,7 @@ export function LRXLine({
       return <p />;
 
     case "CHORDS_LINE":
-      return (
-        <LRXChordLine line={line as LRXChordsLine} transpose={transpose} />
-      );
+      return <LRXChordLine line={line as LRXChordsLine} />;
 
     case "LINE":
       return (

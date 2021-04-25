@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   LRXDocumentBlock,
   LRXGeneralLineEntry,
@@ -12,8 +12,7 @@ export function LRXBlock({
   block,
   onEntryClicked = () => {},
   activeEntry,
-  currentTime = 0,
-  transpose = 0
+  currentTime = 0
 }: {
   maxRate: number;
   block: LRXDocumentBlock;
@@ -46,7 +45,6 @@ export function LRXBlock({
               line={line}
               timeHighlight={timeHighlightedLine === line}
               key={i}
-              transpose={transpose}
               currentTime={currentTime}
               activeEntry={activeEntry}
               onEntryClicked={(entry) => {

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { chords } from "./chords";
 import "./chord-fingering.sass";
-import { Col } from "antd";
+import { Alert, Col } from "antd";
 import * as svguitar from "svguitar";
 import { ChordStyle } from "svguitar";
 import { Chord, parseChord } from "./chord-parser";
@@ -10,14 +10,17 @@ import { LRXChord } from "../common/types";
 import { buildChordName } from "../LRX/extract-chords";
 import { transposeChord } from "./transpose-chord";
 import { hot } from "react-hot-loader";
+import { LRXContext } from "../LRX/LRXContext";
 
 export interface ChordFingeringProps {
   chord: LRXChord;
   transpose?: number;
 }
 
-export function ChordFingering2({ chord, transpose = 0 }: ChordFingeringProps) {
-  let transposed = transposeChord(chord, transpose);
+export function ChordFingering2({ chord }: ChordFingeringProps) {
+  let ctx = useContext(LRXContext);
+  let ref = useRef<HTMLDivElement>();
+  let transposed = transposeChord(chord, ctx.transpose);
   let transposedChordName = buildChordName(transposed);
   let useLocalStorage = createUseLocalStorage(
     `chord::${transposedChordName}::`
@@ -27,11 +30,21 @@ export function ChordFingering2({ chord, transpose = 0 }: ChordFingeringProps) {
   let [container, setContainer] = useState<svguitar.SVGuitarChord | null>();
 
   if (!chordEntities) {
-    throw new Error(`Chord ${transposedChordName} is not recognized [1]`);
+    return (
+      <Alert
+        message={`Chord ${transposedChordName} is not recognized [1]`}
+        type="warning"
+      />
+    );
   }
 
   if (chordEntities.length === 0) {
-    throw new Error(`Chord ${transposedChordName} is not recognized [2]`);
+    return (
+      <Alert
+        message={`Chord ${transposedChordName} is not recognized [2]`}
+        type="warning"
+      />
+    );
   }
 
   let entity = chordEntities[index];
@@ -46,6 +59,12 @@ export function ChordFingering2({ chord, transpose = 0 }: ChordFingeringProps) {
   if (!entity) {
     setIndex(0);
   }
+
+  useEffect(() => {
+    if (ref.current) {
+      createElement(ref.current);
+    }
+  }, [ref.current, ctx.transpose]);
 
   function createElement(ref: HTMLDivElement) {
     if (ref && !container) {
@@ -238,14 +257,7 @@ export function ChordFingering2({ chord, transpose = 0 }: ChordFingeringProps) {
 
   return (
     <Col md={3}>
-      <div
-        ref={(ref) => {
-          if (ref) {
-            createElement(ref);
-          }
-        }}
-        style={{ width: "100px" }}
-      />
+      <div ref={ref} style={{ width: "100px" }} />
     </Col>
   );
 }

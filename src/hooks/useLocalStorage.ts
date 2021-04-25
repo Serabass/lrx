@@ -29,6 +29,8 @@ export function useStateWithLocalStorage<T>(
 ): StateWithLocalStorage<T> {
   let [v, setV] = useState<T>(initialState);
 
+  console.log(v);
+
   useEffect(() => {
     const raw = localStorage.getItem(key) || JSON.stringify(initialState);
     setV(JSON.parse(raw));
