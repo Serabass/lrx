@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Popover } from "antd";
-import { LRXChord, LRXChordsLine } from "./types";
-import { transposeChord } from "./transpose-chord";
-import { ChordFingering } from "./chord-fingering";
+import { LRXChord, LRXChordsLine } from "../common/types";
+import { transposeChord } from "../chords/transpose-chord";
+import { ChordFingering2 } from "../chords/cf";
+import { LRXContext } from "./LRXContext";
 
 export interface LRXChordLineProps {
   line: LRXChordsLine;
@@ -11,18 +12,14 @@ export interface LRXChordLineProps {
 
 interface ChordProps {
   chord: LRXChord;
-  transpose: number;
   trigger?: "click" | "hover";
 }
 
-export function Chord({ chord, transpose, trigger = "click" }: ChordProps) {
+export function Chord({ chord, trigger = "click" }: ChordProps) {
+  let ctx = useContext(LRXContext);
   let [popoverVisible, setPopoverVisible] = useState(false);
+  chord = transposeChord(chord, ctx.transpose);
   let chordName = `${chord.note}${chord.mod || ""}${chord.suffix || ""}`;
-  chordName = transposeChord(chordName, transpose);
-
-  if (chord.bass) {
-    chordName += `/${transposeChord(chord.bass.note, transpose)}`;
-  }
 
   let events: any = {};
 
@@ -46,9 +43,7 @@ export function Chord({ chord, transpose, trigger = "click" }: ChordProps) {
   return (
     <span>
       {chord.space.start}
-      <Popover
-        content={<ChordFingering chord={chordName} transpose={transpose} />}
-      >
+      <Popover content={<ChordFingering2 chord={chord} />} placement="bottom">
         <span className="chord-entry" {...events}>
           {chordName}
         </span>
@@ -58,11 +53,11 @@ export function Chord({ chord, transpose, trigger = "click" }: ChordProps) {
   );
 }
 
-export function LRXChordLine({ line, transpose = 0 }: LRXChordLineProps) {
+export function LRXChordLine({ line }: LRXChordLineProps) {
   return (
     <p className="lrx-chords-line">
       {line.chords.map((chord, i) => {
-        return <Chord chord={chord} transpose={transpose} key={i} />;
+        return <Chord chord={chord} key={i} />;
       })}
     </p>
   );

@@ -1,19 +1,20 @@
 import React from "react";
 import {
-  LRXGeneralLine,
+  LRXLine,
   LRXGeneralLineEntry,
-  OnEntryClickedCallback
-} from "./types";
+  OnEntryClickedCallback,
+  LRXGeneralLine,
+  LRXChordsLine
+} from "../common/types";
 import { LRXChordLine } from "./LRXChordLine";
 import { LRXLyricsLine } from "./LRXLyricsLine";
 
 export interface LRXLineProps {
-  line: LRXGeneralLine;
+  line: LRXLine;
   onEntryClicked: OnEntryClickedCallback;
   activeEntry?: LRXGeneralLineEntry;
   timeHighlight?: boolean;
   currentTime?: number;
-  transpose?: number;
 }
 
 export function LRXLine({
@@ -21,7 +22,6 @@ export function LRXLine({
   onEntryClicked = () => {},
   activeEntry,
   timeHighlight = false,
-  transpose = 0,
   currentTime = 0
 }: LRXLineProps) {
   switch (line.type) {
@@ -29,12 +29,12 @@ export function LRXLine({
       return <p />;
 
     case "CHORDS_LINE":
-      return <LRXChordLine line={line as any} transpose={transpose} />;
+      return <LRXChordLine line={line as LRXChordsLine} />;
 
     case "LINE":
       return (
         <LRXLyricsLine
-          line={line}
+          line={line as LRXGeneralLine}
           activeEntry={activeEntry}
           timeHighlight={timeHighlight}
           currentTime={currentTime}

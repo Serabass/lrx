@@ -1,6 +1,5 @@
 export interface IfProps {
   condition: boolean | (() => boolean);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: any;
 }
 

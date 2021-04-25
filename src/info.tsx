@@ -1,7 +1,7 @@
 import React from "react";
-import { LRXGeneralLineEntry, LRXReportLine } from "./types";
 import p from "pegjs";
 import { Rate } from "antd";
+import { LRXGeneralLineEntry, LRXReportLine } from "./common/types";
 
 export interface InfoProps {
   activeEntry?: LRXGeneralLineEntry;
