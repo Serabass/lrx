@@ -1,10 +1,10 @@
 language: node_js
 node_js:
-  - 10
-  - 11
-  - 12
-  - 13
-  - 14
+  # - 10
+  # - 11
+  # - 12
+  # - 13
+  # - 14
   - 15
 
 script:
@@ -14,7 +14,7 @@ script:
 cache: npm
 
 after_success:
-  - ping $FTP_SERVER
+  # - ping $FTP_SERVER
   - curl -v -T "{$(echo dist/*.* | tr ' ' ',')}" ftp://$FTP_SERVER --user $FTP_USER:$FTP_PASS
 
 branches:
