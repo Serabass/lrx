@@ -3,9 +3,10 @@ import { Button, Col, Row } from "antd";
 import { If } from "../common/if";
 import { ChordFingering2 } from "../chords/cf";
 import { hot } from "react-hot-loader";
+import { LRXChord } from "../common/types";
 
 export interface ChordListProps {
-  list: any[];
+  list: LRXChord[];
 }
 
 function ChordList({ list }: ChordListProps) {
