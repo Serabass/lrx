@@ -5,7 +5,6 @@ import { ButtonType } from "antd/lib/button/button";
 import { LRXContext } from "../LRX/LRXContext";
 
 export interface ChordTransposerProps {
-  value: number;
   min: number;
   max: number;
   onValueChanged: (value: number) => void;

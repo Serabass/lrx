@@ -24,7 +24,7 @@ let useLocalStorage = createUseLocalStorage("lrx");
 
 const LRX = ({ doc, audioUrl }: LRXProps) => {
   let [transpose, setTranspose] = useLocalStorage<number>("transpose", 0);
-  let [fingerings, setFingerings] = useLocalStorage("fingerings", []);
+  let [fingerings, setFingerings] = useLocalStorage<string[]>("fingerings", []);
   let [activeEntry, setActiveEntry] = useState<LRXGeneralLineEntry>();
   let [currentTime, setCurrentTime] = useState<number>(0);
   let maxRate = Math.max(...doc.blocks.map((b) => b.avgRate));

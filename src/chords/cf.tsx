@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { chords } from "./chords";
 import "./chord-fingering.sass";
 import { Alert, Col } from "antd";
@@ -22,10 +22,7 @@ export function ChordFingering2({ chord }: ChordFingeringProps) {
   let ref = React.createRef<HTMLDivElement>();
   let transposed = transposeChord(chord, ctx.transpose);
   let transposedChordName = buildChordName(transposed);
-  let useLocalStorage = createUseLocalStorage(
-    `chord::${transposedChordName}::`
-  );
-  let [index, setIndex] = useLocalStorage("index", 0);
+  let [index, setIndex] = useState(0);
   let chordEntities = chords[transposedChordName];
 
   if (!chordEntities) {
